@@ -1,6 +1,6 @@
 # TravelHelper
 
-Tool : Android Studio
-Language : Java
-Description :
-    * Help Calculate Travel Expenses
+Tool : Android Studio <br />
+Language : Java<br />
+Description : <br />
+&nbsp; Help Calculate Travel Expenses
