@@ -6,6 +6,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -29,11 +30,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, SplashScreen.class));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setLogo(R.drawable.ic_drawer_layout);
+
 
         /* Need to Fix so It will Start after Splash Screen
         boolean isTravelExist = false; //SQL query to check if travel exist
         if(!isTravelExist){
-            //if there isnt any travel exist then send to new page
+            //if there aren't any travel exist then send to new page
             startActivity(new Intent(this, AddTravel.class));
         }*/
         lvNavList=(ListView)findViewById(R.id.activity_main_nav_list);
@@ -57,6 +62,13 @@ public class MainActivity extends AppCompatActivity {
                 super.onDrawerOpened(drawerView);
             }
         };
+
+        dlDrawer.post(new Runnable(){
+            @Override
+            public void run() {
+                dtToggle.syncState();
+            }
+        });
         dlDrawer.setDrawerListener(dtToggle);
         //getActionBar().setDisplayHomeAsUpEnabled(true);
 
