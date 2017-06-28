@@ -27,14 +27,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         startActivity(new Intent(this, SplashScreen.class));
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        /* Need to Fix so It will Start after Splash Screen
         boolean isTravelExist = false; //SQL query to check if travel exist
         if(!isTravelExist){
             //if there isnt any travel exist then send to new page
             startActivity(new Intent(this, AddTravel.class));
-        }
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        }*/
         lvNavList=(ListView)findViewById(R.id.activity_main_nav_list);
         flContainer=(FrameLayout)findViewById(R.id.activity_main_container);
         dlDrawer = (DrawerLayout)findViewById(R.id.activity_main_drawer);

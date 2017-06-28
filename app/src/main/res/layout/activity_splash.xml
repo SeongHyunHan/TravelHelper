@@ -3,11 +3,30 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Splash Screen"
-        android:textAppearance="?android:textAppearanceLarge"
-        />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/splash_screen"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            android:scaleType="centerCrop"
+            android:id="@+id/ssiv"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/ssiv"
+            android:layout_alignTop="@+id/ssiv"
+            android:layout_alignLeft="@+id/ssiv"
+            android:layout_alignRight="@+id/ssiv"
+            android:text="@string/app_name"
+            android:textColor="@color/colorTitle"
+            android:textAlignment="center"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:paddingTop="130dp"/>
+    </RelativeLayout>
 </LinearLayout>

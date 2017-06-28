@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SplashScreen"></activity>
+        <activity android:name=".SplashScreen"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
         <activity android:name=".AddTravel"></activity>
     </application>
 
