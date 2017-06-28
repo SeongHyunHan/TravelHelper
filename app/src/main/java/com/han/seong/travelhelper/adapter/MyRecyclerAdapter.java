@@ -12,7 +12,7 @@ import com.han.seong.travelhelper.R;
 
 import java.util.List;
 
-public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder>{
+public class MyRecyclerAdapter{
 
     private List<TravelVo> travelList;
     private int itemLayout;

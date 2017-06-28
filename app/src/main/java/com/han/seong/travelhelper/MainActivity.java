@@ -12,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
+import com.han.seong.travelhelper.vo.TravelVo;
+
 public class MainActivity extends AppCompatActivity {
 
     private String[] navItems = {"Home", "Setting", "About"};
@@ -19,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private FrameLayout flContainer;
     private DrawerLayout dlDrawer;
     private ActionBarDrawerToggle dtToggle;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         };
         dlDrawer.setDrawerListener(dtToggle);
         //getActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     private class DrawerItemClickListener implements android.widget.AdapterView.OnItemClickListener {
