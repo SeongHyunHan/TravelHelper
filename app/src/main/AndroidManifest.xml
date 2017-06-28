@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SplashScreen"></activity>
+        <activity android:name=".AddTravel"></activity>
     </application>
 
 </manifest>
