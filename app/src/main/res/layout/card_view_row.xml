@@ -3,73 +3,72 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginLeft = "20dp"
+        android:layout_marginRight = "20dp"
+        android:layout_marginTop="5dp"
         android:id="@+id/cardView"
-        card_view:cardCornerRadius="10dp">
+        card_view:cardCornerRadius="10dp"
+        card_view:cardUseCompatPadding="true"
+        card_view:cardMaxElevation="5dp"
+        android:background="@android:color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#eee">
+                android:orientation="vertical">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:background="#fff"
-                    android:layout_marginBottom="1dp">
+                    android:layout_height="match_parent">
+
+
+                    <ImageView
+                        android:id="@+id/iv_CVImage"
+                        android:layout_width="fill_parent"
+                        android:layout_height="130dp"
+                        android:src="@drawable/splash_screen"
+                        android:scaleType="centerCrop"/>
+
                     <TextView
+                        android:id="@+id/tv_CVTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="CV Title"
+                        android:textAlignment="center"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Medium Text"
-                        android:id="@+id/tv_title"
-                        android:textSize="16dp"
-                        android:textAlignment="center"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/rl_image">
-
-                <ImageView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/iv_image" />
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/iv_image"
-                    android:layout_alignTop="@+id/iv_image"
-                    android:layout_alignRight="@+id/iv_image"
-                    android:layout_alignBottom="@+id/iv_image"
-                    android:layout_margin="1dp"
-                    android:gravity="center">
+                        android:layout_alignBottom="@+id/iv_CVImage"
+                        android:layout_alignTop="@+id/iv_CVImage"
+                        android:layout_alignLeft="@+id/iv_CVImage"
+                        android:layout_alignRight="@+id/iv_CVImage"
+                        android:layout_marginTop="25dp"
+                        android:textColor="@color/colorTitle"/>
 
                     <TextView
+                        android:id="@+id/tv_CVCountry"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:text="Hello" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-            </RelativeLayout>
+                        android:layout_alignBottom="@+id/iv_CVImage"
+                        android:layout_alignTop="@+id/iv_CVImage"
+                        android:layout_alignLeft="@+id/iv_CVImage"
+                        android:layout_alignRight="@+id/iv_CVImage"
+                        android:textAlignment="center"
+                        android:layout_marginTop="100dp"
+                        android:textColor="@color/colorCVCountry"
+                        android:text="CV Country" />
+                </RelativeLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:orientation="vertical"
@@ -77,19 +76,29 @@
                 android:layout_height="match_parent"
                 android:background="#ddd">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="16dp"
-                    android:background="#fff"
-                    android:layout_marginBottom="1dp">
+                    android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tv_CVStart"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="New Text"
-                        android:id="@+id/tv_content" />
-                </RelativeLayout>
+                        android:paddingLeft="5dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorCVDate"
+                        android:text="Start Date" />
+
+                    <TextView
+                        android:id="@+id/tv_CVEnd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="End Date"
+                        android:textColor="@color/colorCVDate" />
+                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>

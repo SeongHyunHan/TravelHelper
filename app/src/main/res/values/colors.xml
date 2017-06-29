@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorTitle">#FDDDDF</color>
+    <color name="colorCVCountry">#FCCCCF</color>
+    <color name="colorCVDate">#000000</color>
 </resources>
