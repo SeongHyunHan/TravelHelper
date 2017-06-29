@@ -19,6 +19,7 @@
         <activity android:name=".SplashScreen"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
         <activity android:name=".AddTravel"></activity>
+        <activity android:name=".travelDetail.TravelDetail"></activity>
     </application>
 
 </manifest>

@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.han.seong.travelhelper.adapter.MyRecyclerAdapter;
 import com.han.seong.travelhelper.sqlite.DBManager;
+import com.han.seong.travelhelper.travelDetail.TravelDetail;
 import com.han.seong.travelhelper.vo.TravelVo;
 
 import java.util.ArrayList;
@@ -158,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
         return travelInfo;
     }
 
-    private static class MyOnClickListener implements View.OnClickListener {
+    private class MyOnClickListener implements View.OnClickListener {
         private final Context context;
         private MyOnClickListener(Context context) {
             this.context = context;
@@ -166,7 +167,10 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(context, "CLICKED", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), TravelDetail.class);
+            intent.putExtra("Title", data.get(0).getTitle());
+            intent.putExtra("Country", data.get(0).getCountry());
+            startActivity(intent);
         }
     }
     // ---------End CardView
