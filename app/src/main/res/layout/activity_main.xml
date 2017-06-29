@@ -25,6 +25,15 @@
             android:layout_height="match_parent">
         </android.support.v7.widget.RecyclerView>
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/mainFAB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right|end"
+            android:src="@drawable/ic_drawer_layout"
+            android:clickable="true"
+            android:layout_margin="10dp"/>
+
     </FrameLayout>
 
     <ListView

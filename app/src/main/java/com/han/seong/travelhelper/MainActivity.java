@@ -2,6 +2,7 @@ package com.han.seong.travelhelper;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,8 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private FrameLayout flContainer;
     private DrawerLayout dlDrawer;
     private ActionBarDrawerToggle dtToggle;
-
-
+    private FloatingActionButton mainFAB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         lvNavList=(ListView)findViewById(R.id.activity_main_nav_list);
         flContainer=(FrameLayout)findViewById(R.id.activity_main_container);
         dlDrawer = (DrawerLayout)findViewById(R.id.activity_main_drawer);
+        mainFAB = (FloatingActionButton)findViewById(R.id.mainFAB);
 
         lvNavList.setAdapter(
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, navItems));
@@ -71,6 +72,15 @@ public class MainActivity extends AppCompatActivity {
         });
         dlDrawer.setDrawerListener(dtToggle);
         //getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mainFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), AddTravel.class));
+            }
+        });
+
+
 
     }
 
