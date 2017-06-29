@@ -2,4 +2,10 @@
     <string name="app_name">Travel Helper</string>
     <string name="open_drawer">Open Drawer</string>
     <string name="close_drawer">Close Drawer</string>
+
+    <string name="tab1">제목</string>
+    <string name="tab2">국가</string>
+    <string name="tab3">날짜</string>
+    <string name="tab4">인원</string>
+    <string name="tab5">미정</string>
 </resources>
