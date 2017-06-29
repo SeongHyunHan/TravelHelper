@@ -1,12 +1,17 @@
 package com.han.seong.travelhelper;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
 public class AddTravel extends AppCompatActivity {
+
+    private FloatingActionButton addFAB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,6 +19,14 @@ public class AddTravel extends AppCompatActivity {
         setContentView(R.layout.activity_add_travel);
 
         setUpTabContent();
+
+        addFAB = (FloatingActionButton)findViewById(R.id.addFAB);
+        addFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
 
     }
@@ -34,11 +47,11 @@ public class AddTravel extends AppCompatActivity {
         TabSpec spec5 = tabHost.newTabSpec("Tab1").setContent(R.id.tab5).setIndicator(getString(R.string.tab5));
         tabHost.addTab(spec5);
 
-        tabHost.getTabWidget().getChildAt(0).getLayoutParams().height=80;
-        tabHost.getTabWidget().getChildAt(1).getLayoutParams().height=80;
-        tabHost.getTabWidget().getChildAt(2).getLayoutParams().height=80;
-        tabHost.getTabWidget().getChildAt(3).getLayoutParams().height=80;
-        tabHost.getTabWidget().getChildAt(4).getLayoutParams().height=80;
+        tabHost.getTabWidget().getChildAt(0).getLayoutParams().height=120;
+        tabHost.getTabWidget().getChildAt(1).getLayoutParams().height=120;
+        tabHost.getTabWidget().getChildAt(2).getLayoutParams().height=120;
+        tabHost.getTabWidget().getChildAt(3).getLayoutParams().height=120;
+        tabHost.getTabWidget().getChildAt(4).getLayoutParams().height=120;
 
 
     }

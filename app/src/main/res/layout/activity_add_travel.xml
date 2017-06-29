@@ -12,16 +12,12 @@
         android:minHeight="?attr/actionBarSize"
         android:background="?attr/colorPrimary">
     </android.support.v7.widget.Toolbar>
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="20dp">
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="4"
         android:orientation="vertical"
+        android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 
@@ -34,12 +30,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                >
 
                 <TabWidget
                     android:id="@android:id/tabs"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/black"/>
 
                 <FrameLayout
                     android:id="@android:id/tabcontent"
@@ -146,6 +144,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
+
+                        <android.support.design.widget.FloatingActionButton
+                            android:id="@+id/addFAB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|right|end"
+                            android:src="@drawable/ic_add_person"
+                            android:clickable="true"
+                            android:layout_margin="10dp"/>
                     </LinearLayout>
                     <LinearLayout
                         android:id="@+id/tab5"
@@ -160,27 +167,37 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
 
         <Button
             android:id="@+id/btn_previous"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:text="Previous" />
 
         <Button
             android:id="@+id/btn_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:text="Next" />
     </LinearLayout>
 
     <FrameLayout
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_height="0dp"
+        android:layout_weight="4">
 
         <TextView
             android:layout_width="wrap_content"
@@ -190,10 +207,10 @@
             android:text="CHECK"/>
     </FrameLayout>
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
-        android:layout_marginRight="30dp"
+        android:layout_marginRight="10dp"
         android:id="@+id/addButton"
         android:text="Add Travel"/>
 
