@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
+import com.han.seong.travelhelper.sqlite.DBManager;
 import com.han.seong.travelhelper.vo.TravelVo;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setLogo(R.drawable.ic_drawer_layout);
+        DBManager db = new DBManager(getApplicationContext());
 
 
         /* Need to Fix so It will Start after Splash Screen
