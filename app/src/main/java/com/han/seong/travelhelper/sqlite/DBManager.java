@@ -15,7 +15,7 @@ public class DBManager {
     private static final String TABLE_TRAVEL = "travel";
     private static final String TABLE_PEOPLE = "people";
     private static final String TABLE_COUNTRY = "country";
-    private static final String TABLE_EXPENSE = "expense";
+    private static final String TABLE_FINANCE = "finance";
 
     //set travel table column name
 

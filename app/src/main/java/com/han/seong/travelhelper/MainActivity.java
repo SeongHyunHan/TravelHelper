@@ -25,7 +25,7 @@ import android.widget.Toast;
 import com.han.seong.travelhelper.adapter.MyRecyclerAdapter;
 import com.han.seong.travelhelper.sqlite.DBManager;
 import com.han.seong.travelhelper.travelDetail.TravelDetail;
-import com.han.seong.travelhelper.vo.TravelVo;
+import com.han.seong.travelhelper.vo.Travel;
 
 import java.util.ArrayList;
 
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private static RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
-    private static ArrayList<TravelVo> data;
+    private static ArrayList<Travel> data;
     private static ArrayList<Integer> removedItems;
     public static View.OnClickListener myOnClickListener;
 
@@ -142,9 +142,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    private ArrayList<TravelVo> addTravelDataTest() {
-        ArrayList<TravelVo> travelInfo = new ArrayList<TravelVo>();
-        TravelVo oneTravel = new TravelVo();
+    private ArrayList<Travel> addTravelDataTest() {
+        ArrayList<Travel> travelInfo = new ArrayList<Travel>();
+        Travel oneTravel = new Travel();
         oneTravel.setTitle("TestTitle");
         oneTravel.setCountry("TestCountry");
         oneTravel.setPeople("TestPeople");

@@ -2,14 +2,14 @@ package com.han.seong.travelhelper.vo;
 
 import java.util.Date;
 
-public class TravelVo {
+public class Travel {
     private String title;
     private String country;
     private Date startDate;
     private Date endDate;
     private String people;
 
-    public TravelVo(){}
+    public Travel(){}
 
     public String getTitle() {
         return title;

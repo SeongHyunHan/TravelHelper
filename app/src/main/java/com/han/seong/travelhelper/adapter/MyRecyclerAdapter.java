@@ -5,12 +5,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.han.seong.travelhelper.MainActivity;
-import com.han.seong.travelhelper.vo.TravelVo;
+import com.han.seong.travelhelper.vo.Travel;
 import com.han.seong.travelhelper.R;
 
 import java.util.ArrayList;
@@ -18,7 +16,7 @@ import java.util.List;
 
 public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder>{
 
-    private List<TravelVo> travelList;
+    private List<Travel> travelList;
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView tv_title;
@@ -31,7 +29,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
         }
     }
 
-    public MyRecyclerAdapter(ArrayList<TravelVo> travelList){
+    public MyRecyclerAdapter(ArrayList<Travel> travelList){
         this.travelList = travelList;
     }
 
