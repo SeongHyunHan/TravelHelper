@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
     <android.support.v7.widget.Toolbar
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/toolBar"
+        android:id="@+id/at_toolBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
@@ -166,38 +166,15 @@
         </TabHost>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-
-        <Button
-            android:id="@+id/btn_previous"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Previous" />
-
-        <Button
-            android:id="@+id/btn_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:text="Next" />
-    </LinearLayout>
 
     <FrameLayout
 
         android:layout_width="match_parent"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         android:layout_height="0dp"
-        android:layout_weight="4">
+        android:layout_weight="3">
 
         <TextView
             android:layout_width="wrap_content"
@@ -206,12 +183,6 @@
             android:layout_marginRight="10dp"
             android:text="CHECK"/>
     </FrameLayout>
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_marginRight="10dp"
-        android:id="@+id/addButton"
-        android:text="Add Travel"/>
+
 
 </LinearLayout>
