@@ -6,4 +6,5 @@
     <color name="colorTitle">#FDDDDF</color>
     <color name="colorCVCountry">#FCCCCF</color>
     <color name="colorCVDate">#000000</color>
+    <color name="test">#58FAD0</color>
 </resources>

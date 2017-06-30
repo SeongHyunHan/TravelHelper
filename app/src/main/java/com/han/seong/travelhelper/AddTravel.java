@@ -17,6 +17,8 @@ import android.widget.Toast;
 public class AddTravel extends AppCompatActivity {
 
     private FloatingActionButton addFAB;
+    String[] countries={"USA", "Canada", "Europe", "Japan", "Korea"};
+    int flags[] = {R.drawable.ic_us, R.drawable.ic_canada, R.drawable.ic_japan, R.drawable.ic_korea};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

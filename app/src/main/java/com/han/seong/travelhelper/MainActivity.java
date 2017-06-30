@@ -147,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
         Travel oneTravel = new Travel();
         oneTravel.setTitle("TestTitle");
         oneTravel.setCountry("TestCountry");
-        oneTravel.setPeople("TestPeople");
         travelInfo.add(oneTravel);
         travelInfo.add(oneTravel);
         travelInfo.add(oneTravel);

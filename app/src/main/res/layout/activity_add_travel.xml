@@ -48,7 +48,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:background="@android:color/white">
+                        android:background="@color/test">
 
                         <EditText
                             android:id="@+id/edt_travelTitle"
@@ -57,6 +57,8 @@
                             android:ems="10"
                             android:inputType="textPersonName"
                             android:text="Please Enter Travel Title" />
+
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -65,38 +67,10 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/tv_travelNation"
+                        <Spinner
+                            android:id="@+id/countrySpinner"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Please Select Nation" />
-
-                        <RadioGroup
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
-
-                            <RadioButton
-                                android:id="@+id/rb_US"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="USA" />
-
-                            <RadioButton
-                                android:id="@+id/rb_Europe"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Europe" />
-
-                            <RadioButton
-                                android:id="@+id/rb_Canada"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Canada" />
-                        </RadioGroup>
-
+                            android:layout_height="wrap_content" />
                     </LinearLayout>
 
                     <LinearLayout
