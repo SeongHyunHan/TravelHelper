@@ -7,7 +7,9 @@ public class Travel {
     private String country;
     private Date startDate;
     private Date endDate;
-    private String people;
+    private String image;
+    private double totalSpent;
+    private double totalBudget;
 
     public Travel(){}
 
@@ -43,11 +45,27 @@ public class Travel {
         this.endDate = endDate;
     }
 
-    public String getPeople() {
-        return people;
+    public String getImage() {
+        return image;
     }
 
-    public void setPeople(String people) {
-        this.people = people;
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public double getTotalSpent() {
+        return totalSpent;
+    }
+
+    public void setTotalSpent(double totalSpent) {
+        this.totalSpent = totalSpent;
+    }
+
+    public double getTotalBudget() {
+        return totalBudget;
+    }
+
+    public void setTotalBudget(double totalBudget) {
+        this.totalBudget = totalBudget;
     }
 }
