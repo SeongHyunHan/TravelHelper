@@ -20,8 +20,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.han.seong.travelhelper.adapter.AT_SpinnerAdapter;
 import com.han.seong.travelhelper.adapter.MyRecyclerAdapter;
 import com.han.seong.travelhelper.sqlite.DBManager;
 import com.han.seong.travelhelper.travelDetail.TravelDetail;

@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/spn_tv"
         android:layout_gravity="center"
-        android:text="Please Select Travel Country"/>
+        android:text="Please Select Travel Country"
+        android:textColor="@color/colorCVCountry"/>
 
 </LinearLayout>

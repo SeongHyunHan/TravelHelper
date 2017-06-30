@@ -10,20 +10,30 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.Toast;
 
-public class AddTravel extends AppCompatActivity {
+import com.han.seong.travelhelper.adapter.AT_SpinnerAdapter;
+
+public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     private FloatingActionButton addFAB;
     String[] countries={"USA", "Canada", "Europe", "Japan", "Korea"};
-    int flags[] = {R.drawable.ic_us, R.drawable.ic_canada, R.drawable.ic_japan, R.drawable.ic_korea};
+    int flags[] = {R.drawable.ic_us, R.drawable.ic_canada, R.drawable.ic_europe, R.drawable.ic_japan, R.drawable.ic_korea};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_travel);
+
+        Spinner spin =(Spinner)findViewById(R.id.countrySpinner);
+        spin.setOnItemSelectedListener(this);
+
+        AT_SpinnerAdapter at_spinnerAdapter = new AT_SpinnerAdapter(getApplicationContext(), flags, countries);
+        spin.setAdapter(at_spinnerAdapter);
 
         setUpTabContent();
 
@@ -38,6 +48,16 @@ public class AddTravel extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id){
+        Toast.makeText(getApplicationContext(), countries[position], Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> arg0){
 
     }
 
