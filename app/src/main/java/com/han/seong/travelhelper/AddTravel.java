@@ -6,11 +6,14 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -59,7 +62,7 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
         addFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                popUpAlertDialog();
             }
         });
 
@@ -177,5 +180,36 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         editText.setText(sdf.format(myCalendar.getTime()));
+    }
+
+    public void popUpAlertDialog(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        final View dialogView = inflater.inflate(R.layout.add_people_dialog, null);
+        alertDialog.setView(dialogView);
+
+        final EditText edtFName = (EditText)findViewById(R.id.edt_ap_fName);
+        final EditText edtLName = (EditText)findViewById(R.id.edt_ap_lName);
+        final EditText edtBudget = (EditText)findViewById(R.id.edt_ap_budget);
+
+        alertDialog.setTitle("Add Person");
+        alertDialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(AddTravel.this, "OK Button Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(AddTravel.this, "Cancel Button Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        AlertDialog dialog = alertDialog.create();
+        dialog.show();
+
     }
 }
