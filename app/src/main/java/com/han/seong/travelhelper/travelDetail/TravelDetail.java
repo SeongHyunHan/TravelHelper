@@ -37,6 +37,7 @@ public class TravelDetail extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.dt_ToolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setLogo(R.drawable.ic_drawer_layout);
+        toolbar.setTitle("This is Placement for Travel Title");
 
     }
 

@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +24,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="Enter First Name" />
+            android:hint="Enter First Name" />
     </LinearLayout>
 
     \
@@ -46,7 +47,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="Enter Last Name" />
+            android:hint="Enter Last Name" />
     </LinearLayout>
 
     <LinearLayout
@@ -67,7 +68,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="Enter Budget"
+            android:hint="Enter Budget(€)"
             android:inputType="numberDecimal"
             android:ems="10"/>
     </LinearLayout>

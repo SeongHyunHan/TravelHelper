@@ -13,6 +13,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,14 +26,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.han.seong.travelhelper.adapter.AT_SpinnerAdapter;
 
 public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
-    private EditText edt_startDate;
-    private EditText edt_endDate;
+    private EditText edt_title, edt_startDate, edt_endDate;
+    private TextView tv_title, tv_country, tv_startDate, tv_endDate, tv_people;
     private FloatingActionButton addFAB;
     String[] countries={"USA", "Canada", "Europe", "Japan", "Korea"};
     int flags[] = {R.drawable.ic_us, R.drawable.ic_canada, R.drawable.ic_europe, R.drawable.ic_japan, R.drawable.ic_korea};
@@ -41,9 +44,14 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_travel);
 
-        edt_startDate=(EditText)findViewById(R.id.edt_startDate);
-        edt_endDate=(EditText)findViewById(R.id.edt_endDate);
-
+        edt_title = (EditText)findViewById(R.id.edt_travelTitle);
+        edt_startDate = (EditText)findViewById(R.id.edt_startDate);
+        edt_endDate = (EditText)findViewById(R.id.edt_endDate);
+        tv_title = (TextView)findViewById(R.id.tv_at_travelTitle);
+        tv_country = (TextView)findViewById(R.id.tv_at_countryInfo);
+        tv_startDate = (TextView)findViewById(R.id.tv_at_startDateInfo);
+        tv_endDate = (TextView)findViewById(R.id.tv_at_endDateInfo);
+        tv_people = (TextView)findViewById(R.id.tv_at_peopleInfo);
 
         Spinner spin =(Spinner)findViewById(R.id.countrySpinner);
         spin.setOnItemSelectedListener(this);
@@ -57,6 +65,7 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.at_toolBar);
         setSupportActionBar(toolbar);
+        toolbar.setTitle("Add Travel Info");
 
         addFAB = (FloatingActionButton)findViewById(R.id.addFAB);
         addFAB.setOnClickListener(new View.OnClickListener() {
@@ -67,16 +76,29 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
         });
 
 
+        edt_title.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                tv_title.setText(edt_title.getText());
+            }
+        });
+
     }
 
     @Override
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id){
-        Toast.makeText(getApplicationContext(), countries[position], Toast.LENGTH_SHORT).show();
+        tv_country.setText(countries[position]);
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> arg0){
-
+        tv_country.setText("");
     }
 
 
@@ -92,16 +114,11 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
         tabHost.addTab(spec3);
         TabSpec spec4 = tabHost.newTabSpec("Tab4").setContent(R.id.tab4).setIndicator(getString(R.string.tab4));
         tabHost.addTab(spec4);
-        TabSpec spec5 = tabHost.newTabSpec("Tab5").setContent(R.id.tab5).setIndicator(getString(R.string.tab5));
-        tabHost.addTab(spec5);
 
         tabHost.getTabWidget().getChildAt(0).getLayoutParams().height=120;
         tabHost.getTabWidget().getChildAt(1).getLayoutParams().height=120;
         tabHost.getTabWidget().getChildAt(2).getLayoutParams().height=120;
         tabHost.getTabWidget().getChildAt(3).getLayoutParams().height=120;
-        tabHost.getTabWidget().getChildAt(4).getLayoutParams().height=120;
-
-
     }
 
     // Setting Option Menu
@@ -137,7 +154,7 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, month);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabel(edt_startDate, myCalendar);
+                updateLabel(edt_startDate, myCalendar, 0);
             }
         };
 
@@ -160,7 +177,7 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, month);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabel(edt_endDate, myCalendar);
+                updateLabel(edt_endDate, myCalendar, 1);
             }
         };
 
@@ -174,12 +191,20 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
     }
 
 
-    private void updateLabel(EditText editText, Calendar myCalendar) {
+    private void updateLabel(EditText editText, Calendar myCalendar, int i) {
 
         String myFormat = "MM/dd/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         editText.setText(sdf.format(myCalendar.getTime()));
+        switch(i){
+            case 0:
+                tv_startDate.setText(sdf.format(myCalendar.getTime()));
+                break;
+            case 1:
+                tv_endDate.setText(sdf.format(myCalendar.getTime()));
+                break;
+        }
     }
 
     public void popUpAlertDialog(){

@@ -55,9 +55,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, SplashScreen.class));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setLogo(R.drawable.ic_drawer_layout);
+
         DBManager db = new DBManager(getApplicationContext());
 
         settingNavigationDrawer();
