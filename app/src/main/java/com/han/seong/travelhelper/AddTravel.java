@@ -2,6 +2,7 @@ package com.han.seong.travelhelper;
 
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -21,8 +22,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
@@ -30,14 +33,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.han.seong.travelhelper.adapter.AT_SpinnerAdapter;
+import com.han.seong.travelhelper.vo.Person;
 
 public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
-    private EditText edt_title, edt_startDate, edt_endDate;
+    private EditText edt_title, edt_startDate, edt_endDate, edt_fName, edt_lName, edt_budget;
     private TextView tv_title, tv_country, tv_startDate, tv_endDate, tv_people;
     private FloatingActionButton addFAB;
     String[] countries={"USA", "Canada", "Europe", "Japan", "Korea"};
     int flags[] = {R.drawable.ic_us, R.drawable.ic_canada, R.drawable.ic_europe, R.drawable.ic_japan, R.drawable.ic_korea};
+    ArrayList<Person> peopleList;
+    ArrayList<String> adapterInfo;
+    ArrayAdapter personAdapter;
+    ListView lv_peopleInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +67,12 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
         AT_SpinnerAdapter at_spinnerAdapter = new AT_SpinnerAdapter(getApplicationContext(), flags, countries);
         spin.setAdapter(at_spinnerAdapter);
 
+        peopleList = new ArrayList<Person>();
+        adapterInfo = new ArrayList<String>();
+        lv_peopleInfo = (ListView)findViewById(R.id.lv_at_people);
+        personAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, adapterInfo);
+        lv_peopleInfo.setAdapter(personAdapter);
+
         setUpTabContent();
         setUpStartCalendar();
         setUpEndCalendar();
@@ -66,6 +80,8 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
         Toolbar toolbar = (Toolbar) findViewById(R.id.at_toolBar);
         setSupportActionBar(toolbar);
         toolbar.setTitle("Add Travel Info");
+
+
 
         addFAB = (FloatingActionButton)findViewById(R.id.addFAB);
         addFAB.setOnClickListener(new View.OnClickListener() {
@@ -214,14 +230,41 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
         final View dialogView = inflater.inflate(R.layout.add_people_dialog, null);
         alertDialog.setView(dialogView);
 
-        final EditText edtFName = (EditText)findViewById(R.id.edt_ap_fName);
-        final EditText edtLName = (EditText)findViewById(R.id.edt_ap_lName);
-        final EditText edtBudget = (EditText)findViewById(R.id.edt_ap_budget);
-
+        edt_fName = (EditText)findViewById(R.id.edt_ap_fName);
+        edt_lName = (EditText)findViewById(R.id.edt_ap_lName);
+        edt_budget = (EditText)findViewById(R.id.edt_ap_budget);
+        
         alertDialog.setTitle("Add Person");
         alertDialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                Person p = new Person();
+                p.setFirstName("Seong Hyun");
+                p.setLastName("Han");
+                //if(edt_budget.getText().toString() == null || edt_budget.getText().toString().equals("")){
+                    p.setBalance(50.00);
+               // }else{
+                    //p.setBalance(Double.parseDouble(edt_budget.getText().toString()));
+                //}
+                p.setOwnBudget(0.00);
+
+                peopleList.add(p);
+                String fullInfo = "";
+                fullInfo += "Name: " + p.getFirstName() + " " + p.getLastName() + "\nBudget: € " + p.getBalance();
+                adapterInfo.add(fullInfo);
+                personAdapter.notifyDataSetChanged();
+
+                String name = "";
+
+                for(int i = 0; i < peopleList.size(); i++){
+                    name += peopleList.get(i).getFirstName() + " " + peopleList.get(i).getLastName();
+
+                    if(i != peopleList.size()-1){
+                        name += ", ";
+                    }
+                }
+
+                tv_people.setText("" + peopleList.size() + " 명 (" + name + ")");
                 Toast.makeText(AddTravel.this, "OK Button Clicked", Toast.LENGTH_SHORT).show();
             }
         });
