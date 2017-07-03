@@ -7,5 +7,8 @@
     <string name="tab2">국가</string>
     <string name="tab3">날짜</string>
     <string name="tab4">인원</string>
-    <string name="tab5">미정</string>
+
+    <string name="td_tab1">전체</string>
+    <string name="td_tab2">통계</string>
+    <string name="td_tab3">차트</string>
 </resources>

@@ -1,7 +1,5 @@
 package com.han.seong.travelhelper.travelDetail;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,8 +12,6 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TabHost;
 
-
-import com.han.seong.travelhelper.MainActivity;
 import com.han.seong.travelhelper.R;
 
 public class TravelDetail extends AppCompatActivity{
@@ -37,19 +33,20 @@ public class TravelDetail extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.dt_ToolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setLogo(R.drawable.ic_drawer_layout);
-        toolbar.setTitle("This is Placement for Travel Title");
+        getSupportActionBar().setTitle("This is Placement for Travel Title");
 
     }
 
+    //set up tab title
     public void setUpTabContent(){
         TabHost tabHost = (TabHost)findViewById(R.id.dt_tabHost);
         tabHost.setup();
 
-        TabHost.TabSpec spec1 = tabHost.newTabSpec("Tab1").setContent(R.id.dt_tab1).setIndicator(getString(R.string.tab1));
+        TabHost.TabSpec spec1 = tabHost.newTabSpec("Tab1").setContent(R.id.dt_tab1).setIndicator(getString(R.string.td_tab1));
         tabHost.addTab(spec1);
-        TabHost.TabSpec spec2 = tabHost.newTabSpec("Tab2").setContent(R.id.dt_tab2).setIndicator(getString(R.string.tab2));
+        TabHost.TabSpec spec2 = tabHost.newTabSpec("Tab2").setContent(R.id.dt_tab2).setIndicator(getString(R.string.td_tab2));
         tabHost.addTab(spec2);
-        TabHost.TabSpec spec3 = tabHost.newTabSpec("Tab3").setContent(R.id.dt_tab3).setIndicator(getString(R.string.tab3));
+        TabHost.TabSpec spec3 = tabHost.newTabSpec("Tab3").setContent(R.id.dt_tab3).setIndicator(getString(R.string.td_tab3));
         tabHost.addTab(spec3);
 
         tabHost.getTabWidget().getChildAt(0).getLayoutParams().height=120;
@@ -102,4 +99,7 @@ public class TravelDetail extends AppCompatActivity{
         }
     }
     // -------End Navigation Drawer
+
+
+
 }

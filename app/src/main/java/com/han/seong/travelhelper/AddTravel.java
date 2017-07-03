@@ -79,7 +79,7 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.at_toolBar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Add Travel Info");
+        getSupportActionBar().setTitle("Add Travel Info");
 
 
 
