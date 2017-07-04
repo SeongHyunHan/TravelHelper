@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -42,19 +43,17 @@ import butterknife.ButterKnife;
 public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     //EditText Bind
-    @BindView(R.id.edt_travelTitle) private EditText edt_title;
-    @BindView(R.id.edt_startDate) private EditText edt_startDate;
-    @BindView(R.id.edt_endDate) private EditText edt_endDate;
-    @BindView(R.id.edt_ap_fName) private EditText edt_fName;
-    @BindView(R.id.edt_ap_lName) private EditText edt_lName;
-    @BindView(R.id.edt_ap_budget) private EditText edt_budget;
+    @BindView(R.id.edt_travelTitle) EditText edt_title;
+    @BindView(R.id.edt_startDate) EditText edt_startDate;
+    @BindView(R.id.edt_endDate) EditText edt_endDate;
+    private EditText edt_fName, edt_lName, edt_budget;
 
     //TextView Bind
-    @BindView(R.id.tv_at_travelTitle) private EditText tv_title;
-    @BindView(R.id.tv_at_countryInfo) private EditText tv_country;
-    @BindView(R.id.tv_at_startDateInfo) private EditText tv_startDate;
-    @BindView(R.id.tv_at_endDateInfo) private EditText tv_endDate;
-    @BindView(R.id.tv_at_peopleInfo) private EditText tv_people;
+    @BindView(R.id.tv_at_travelTitle) TextView tv_title;
+    @BindView(R.id.tv_at_countryInfo) TextView tv_country;
+    @BindView(R.id.tv_at_startDateInfo) TextView tv_startDate;
+    @BindView(R.id.tv_at_endDateInfo) TextView tv_endDate;
+    @BindView(R.id.tv_at_peopleInfo) TextView tv_people;
 
     private FloatingActionButton addFAB;
     String[] countries={"USA", "Canada", "Europe", "Japan", "Korea"};
@@ -238,9 +237,13 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
         LayoutInflater inflater = this.getLayoutInflater();
 
         final View dialogView = inflater.inflate(R.layout.add_people_dialog, null);
+        edt_fName = (EditText)findViewById(R.id.edt_ap_fName);
+        edt_lName = (EditText)findViewById(R.id.edt_ap_lName);
+        edt_budget = (EditText)findViewById(R.id.edt_ap_budget);
         alertDialog.setView(dialogView);
 
-        
+
+
         alertDialog.setTitle("Add Person");
         alertDialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
             @Override

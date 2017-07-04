@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle dtToggle;
 
     //ToolBar
-    @BindView(R.id.toolBar) private Toolbar toolbar;
+    @BindView(R.id.toolBar) Toolbar toolbar;
 
     //Floating Action Button
     private FloatingActionButton mainFAB;
