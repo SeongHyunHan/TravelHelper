@@ -237,30 +237,30 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
         LayoutInflater inflater = this.getLayoutInflater();
 
         final View dialogView = inflater.inflate(R.layout.add_people_dialog, null);
-        edt_fName = (EditText)findViewById(R.id.edt_ap_fName);
-        edt_lName = (EditText)findViewById(R.id.edt_ap_lName);
-        edt_budget = (EditText)findViewById(R.id.edt_ap_budget);
         alertDialog.setView(dialogView);
-
-
 
         alertDialog.setTitle("Add Person");
         alertDialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                edt_fName = (EditText)dialogView.findViewById(R.id.edt_ap_fName);
+                edt_lName = (EditText)dialogView.findViewById(R.id.edt_ap_lName);
+                edt_budget = (EditText)dialogView.findViewById(R.id.edt_ap_budget);
+
                 Person p = new Person();
-                p.setFirstName("Seong Hyun");
-                p.setLastName("Han");
-                //if(edt_budget.getText().toString() == null || edt_budget.getText().toString().equals("")){
-                    p.setBalance(50.00);
-               // }else{
-                    //p.setBalance(Double.parseDouble(edt_budget.getText().toString()));
-                //}
+                p.setFirstName(edt_fName.getText().toString());
+                p.setLastName(edt_lName.getText().toString());
+                if(edt_budget.getText().toString() == null || edt_budget.getText().toString().equals("")){
+                    p.setBalance(00.00);
+               }else{
+                    p.setBalance(Double.parseDouble(edt_budget.getText().toString()));
+                }
                 p.setOwnBudget(0.00);
 
                 peopleList.add(p);
                 String fullInfo = "";
-                fullInfo += "Name: " + p.getFirstName() + " " + p.getLastName() + "\nBudget: € " + p.getBalance();
+                String balance = String.format("%.2f", p.getBalance());
+                fullInfo += "Name: " + p.getFirstName() + " " + p.getLastName() + "\nBudget: € " + balance;
                 adapterInfo.add(fullInfo);
                 personAdapter.notifyDataSetChanged();
 
