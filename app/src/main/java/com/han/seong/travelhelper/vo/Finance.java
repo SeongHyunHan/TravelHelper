@@ -1,6 +1,6 @@
 package com.han.seong.travelhelper.vo;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Finance {
     private String paymentTitle;

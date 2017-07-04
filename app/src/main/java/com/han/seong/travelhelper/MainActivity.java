@@ -20,11 +20,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.han.seong.travelhelper.adapter.AT_SpinnerAdapter;
-import com.han.seong.travelhelper.adapter.MyRecyclerAdapter;
+import com.han.seong.travelhelper.adapter.Main_RecyclerAdapter;
 import com.han.seong.travelhelper.sqlite.DBManager;
 import com.han.seong.travelhelper.travelDetail.TravelDetail;
 import com.han.seong.travelhelper.vo.Travel;
@@ -71,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
             //if there aren't any travel exist then send to new page
             startActivity(new Intent(this, AddTravel.class));
         }*/
+
+
         flContainer=(FrameLayout)findViewById(R.id.activity_main_container);
         mainFAB = (FloatingActionButton)findViewById(R.id.mainFAB);
         mainFAB.setOnClickListener(new View.OnClickListener() {
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
 
         removedItems = new ArrayList<Integer>();
 
-        adapter = new MyRecyclerAdapter(data);
+        adapter = new Main_RecyclerAdapter(data);
         recyclerView.setAdapter(adapter);
     }
 

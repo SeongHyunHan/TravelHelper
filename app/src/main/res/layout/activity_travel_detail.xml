@@ -47,25 +47,65 @@
                         android:id="@android:id/tabcontent"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
+
                         <LinearLayout
                             android:id="@+id/dt_tab1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical">
 
-                            <android.support.v7.widget.RecyclerView
-                                android:id="@+id/td_recyclerView"
+                            <RelativeLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
-                        </LinearLayout>
+                                android:layout_height="wrap_content">
 
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/td_general_recyclerView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="right">
+                                    <android.support.design.widget.FloatingActionButton
+                                        android:id="@+id/walletFAB"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="right"
+                                        android:src="@drawable/ic_wallet"
+                                        android:clickable="true"
+                                        android:layout_margin="10dp"/>
+                                </RelativeLayout>
+                            </RelativeLayout>
+
+
+
+                        </LinearLayout>
                         <LinearLayout
                             android:id="@+id/dt_tab2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical">
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="20dp"
+                                android:elevation="100dp"
+                                android:background="@android:color/holo_green_light">
+
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/td_person_recyclerView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
+
+                            </FrameLayout>
                         </LinearLayout>
+
+
+
 
                         <LinearLayout
                             android:id="@+id/dt_tab3"

@@ -1,7 +1,6 @@
 package com.han.seong.travelhelper.adapter;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import com.han.seong.travelhelper.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder>{
+public class Main_RecyclerAdapter extends RecyclerView.Adapter<Main_RecyclerAdapter.MyViewHolder>{
 
     private List<Travel> travelList;
     public static class MyViewHolder extends RecyclerView.ViewHolder{
@@ -29,14 +28,14 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
         }
     }
 
-    public MyRecyclerAdapter(ArrayList<Travel> travelList){
+    public Main_RecyclerAdapter(ArrayList<Travel> travelList){
         this.travelList = travelList;
     }
 
 
 
     @Override
-    public MyRecyclerAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public Main_RecyclerAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_view_row, parent, false);
 
@@ -47,13 +46,10 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
     }
 
     @Override
-    public void onBindViewHolder(MyRecyclerAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(Main_RecyclerAdapter.MyViewHolder holder, final int position) {
         TextView tv_title = holder.tv_title;
         TextView tv_content = holder.tv_content;
 
-        Log.i("CardView Position", String.valueOf(position));
-        Log.i("CardView Title", travelList.get(position).getTitle());
-        Log.i("CardView Country", travelList.get(position).getCountry());
         tv_title.setText(travelList.get(position).getTitle());
         tv_content.setText(travelList.get(position).getCountry());
     }
