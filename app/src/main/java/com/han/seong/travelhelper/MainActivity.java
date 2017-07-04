@@ -29,6 +29,9 @@ import com.han.seong.travelhelper.vo.Travel;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
 
     private String[] navItems = {"Home", "Setting", "About"};
@@ -36,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
     private FrameLayout flContainer;
     private DrawerLayout dlDrawer;
     private ActionBarDrawerToggle dtToggle;
+
+    //ToolBar
+    @BindView(R.id.toolBar) private Toolbar toolbar;
 
     //Floating Action Button
     private FloatingActionButton mainFAB;
@@ -53,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, SplashScreen.class));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setLogo(R.drawable.ic_drawer_layout);
 

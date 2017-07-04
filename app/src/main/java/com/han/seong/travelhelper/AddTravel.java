@@ -35,13 +35,31 @@ import android.widget.Toast;
 import com.han.seong.travelhelper.adapter.AT_SpinnerAdapter;
 import com.han.seong.travelhelper.vo.Person;
 
+import butterknife.BindArray;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
-    private EditText edt_title, edt_startDate, edt_endDate, edt_fName, edt_lName, edt_budget;
-    private TextView tv_title, tv_country, tv_startDate, tv_endDate, tv_people;
+    //EditText Bind
+    @BindView(R.id.edt_travelTitle) private EditText edt_title;
+    @BindView(R.id.edt_startDate) private EditText edt_startDate;
+    @BindView(R.id.edt_endDate) private EditText edt_endDate;
+    @BindView(R.id.edt_ap_fName) private EditText edt_fName;
+    @BindView(R.id.edt_ap_lName) private EditText edt_lName;
+    @BindView(R.id.edt_ap_budget) private EditText edt_budget;
+
+    //TextView Bind
+    @BindView(R.id.tv_at_travelTitle) private EditText tv_title;
+    @BindView(R.id.tv_at_countryInfo) private EditText tv_country;
+    @BindView(R.id.tv_at_startDateInfo) private EditText tv_startDate;
+    @BindView(R.id.tv_at_endDateInfo) private EditText tv_endDate;
+    @BindView(R.id.tv_at_peopleInfo) private EditText tv_people;
+
     private FloatingActionButton addFAB;
     String[] countries={"USA", "Canada", "Europe", "Japan", "Korea"};
     int flags[] = {R.drawable.ic_us, R.drawable.ic_canada, R.drawable.ic_europe, R.drawable.ic_japan, R.drawable.ic_korea};
+
     ArrayList<Person> peopleList;
     ArrayList<String> adapterInfo;
     ArrayAdapter personAdapter;
@@ -51,15 +69,7 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_travel);
-
-        edt_title = (EditText)findViewById(R.id.edt_travelTitle);
-        edt_startDate = (EditText)findViewById(R.id.edt_startDate);
-        edt_endDate = (EditText)findViewById(R.id.edt_endDate);
-        tv_title = (TextView)findViewById(R.id.tv_at_travelTitle);
-        tv_country = (TextView)findViewById(R.id.tv_at_countryInfo);
-        tv_startDate = (TextView)findViewById(R.id.tv_at_startDateInfo);
-        tv_endDate = (TextView)findViewById(R.id.tv_at_endDateInfo);
-        tv_people = (TextView)findViewById(R.id.tv_at_peopleInfo);
+        ButterKnife.bind(this);
 
         Spinner spin =(Spinner)findViewById(R.id.countrySpinner);
         spin.setOnItemSelectedListener(this);
@@ -230,9 +240,6 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
         final View dialogView = inflater.inflate(R.layout.add_people_dialog, null);
         alertDialog.setView(dialogView);
 
-        edt_fName = (EditText)findViewById(R.id.edt_ap_fName);
-        edt_lName = (EditText)findViewById(R.id.edt_ap_lName);
-        edt_budget = (EditText)findViewById(R.id.edt_ap_budget);
         
         alertDialog.setTitle("Add Person");
         alertDialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
