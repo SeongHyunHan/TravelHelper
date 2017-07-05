@@ -13,6 +13,8 @@ import com.han.seong.travelhelper.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 public class Main_RecyclerAdapter extends RecyclerView.Adapter<Main_RecyclerAdapter.MyViewHolder>{
 
     private List<Travel> travelList;

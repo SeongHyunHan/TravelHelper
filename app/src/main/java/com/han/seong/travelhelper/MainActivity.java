@@ -23,7 +23,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.han.seong.travelhelper.adapter.Main_RecyclerAdapter;
-import com.han.seong.travelhelper.sqlite.DBManager;
 import com.han.seong.travelhelper.travelDetail.TravelDetail;
 import com.han.seong.travelhelper.vo.Travel;
 
@@ -32,6 +31,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -63,13 +63,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        initRealm();
         setSupportActionBar(toolbar);
         getSupportActionBar().setLogo(R.drawable.ic_drawer_layout);
 
         settingNavigationDrawer();
         settingCardView();
 
-        initRealm();
+
 
 
         /* Need to Fix so It will Start after Splash Screen
@@ -139,36 +140,37 @@ public class MainActivity extends AppCompatActivity {
 
     // Setting CardView
     private void settingCardView() {
-        myOnClickListener = new MyOnClickListener(this);
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
+        RealmResults<Travel> realmResults = mRealm.where(Travel.class).findAll();
+        if (realmResults.size() == 0) {
+            //startActivity(new Intent(this, AddTravel.class));
+        }else {
+            myOnClickListener = new MyOnClickListener(this);
+            recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+            recyclerView.setHasFixedSize(true);
 
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+            layoutManager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        data = addTravelDataTest();
+            data = addTravelDataTest();
 
-        removedItems = new ArrayList<Integer>();
+            removedItems = new ArrayList<Integer>();
 
-        adapter = new Main_RecyclerAdapter(data);
-        recyclerView.setAdapter(adapter);
+            adapter = new Main_RecyclerAdapter(data);
+            recyclerView.setAdapter(adapter);
+        }
+
     }
 
     private ArrayList<Travel> addTravelDataTest() {
         ArrayList<Travel> travelInfo = new ArrayList<Travel>();
-        Travel oneTravel = new Travel();
-        oneTravel.setTitle("TestTitle");
-        oneTravel.setCountry("TestCountry");
-        travelInfo.add(oneTravel);
-        travelInfo.add(oneTravel);
-        travelInfo.add(oneTravel);
-        travelInfo.add(oneTravel);
-        travelInfo.add(oneTravel);
-        travelInfo.add(oneTravel);
-        travelInfo.add(oneTravel);
+        RealmResults<Travel> realmResults = mRealm.where(Travel.class).findAll();
 
-        return travelInfo;
+            for (int i = 0; i < realmResults.size(); i++) {
+                travelInfo.add(realmResults.get(i));
+            }
+            return travelInfo;
+
     }
 
     private class MyOnClickListener implements View.OnClickListener {

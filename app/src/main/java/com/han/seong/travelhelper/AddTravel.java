@@ -42,6 +42,7 @@ import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
@@ -299,12 +300,13 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
     }
 
     private void saveToDatabase(){
-        realm.executeTransaction(new Realm.Transaction() {
+        realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
                 try {
                     Travel travel = realm.createObject(Travel.class);
-                    travel.setTravelNo(1);
+                    long travelId = realm.where(Travel.class).count();
+                    travel.setTravelNo((int)travelId+1);
                     travel.setTitle(edt_title.getText().toString());
                     travel.setCountry(tv_country.getText().toString());
 
@@ -318,14 +320,25 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
                     travel.setTotalBudget(totalBudget);
                     travel.setImage("");
 
-                    for(int i = 0 ; i < peopleList.size(); i++){
-                        Person person;
-                        person = peopleList.get(i);
+                    for (int i = 0; i < peopleList.size(); i++) {
+                        Person person = peopleList.get(i);
+                        person.setPersonNo(i);
                         travel.getPeople().add(person);
                     }
-                }catch (ParseException e) {
-                        e.printStackTrace();
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(AddTravel.this, "Insert Successful", Toast.LENGTH_SHORT).show();
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+
+                Toast.makeText(AddTravel.this, "Error!", Toast.LENGTH_SHORT).show();
             }
         });
     }

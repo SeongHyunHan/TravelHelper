@@ -5,7 +5,7 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 public class Person extends RealmObject{
-
+    @PrimaryKey
     private int personNo;
 
     private String firstName;
