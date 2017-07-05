@@ -35,11 +35,13 @@ public class Main_RecyclerAdapter extends RecyclerView.Adapter<Main_RecyclerAdap
             this.tv_content = (TextView)itemView.findViewById(R.id.tv_CVCountry);
             this.tv_startDate = (TextView)itemView.findViewById(R.id.tv_CVStart);
             this.tv_endDate = (TextView)itemView.findViewById(R.id.tv_CVEnd);
+
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(view.getContext(), TravelDetail.class);
-                    intent.putExtra("Title", tv_title.getText().toString());
+                    intent.putExtra("Title", tv_title.getText().toString() + " (" + tv_content.getText().toString() + ")");
+                    intent.putExtra("Subtitle", tv_startDate.getText().toString() + " ~ " + tv_endDate.getText().toString());
                     view.getContext().startActivity(intent);
                 }
             });

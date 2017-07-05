@@ -74,6 +74,7 @@ public class TravelDetail extends AppCompatActivity{
         super.onResume();
         Intent intent = getIntent();
         getSupportActionBar().setTitle(intent.getStringExtra("Title"));
+        getSupportActionBar().setSubtitle(intent.getStringExtra("Subtitle"));
     }
 
     //set up tab title
