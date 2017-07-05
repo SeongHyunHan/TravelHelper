@@ -1,5 +1,6 @@
 package com.han.seong.travelhelper.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.han.seong.travelhelper.MainActivity;
+import com.han.seong.travelhelper.travelDetail.TravelDetail;
 import com.han.seong.travelhelper.vo.Travel;
 import com.han.seong.travelhelper.R;
 
@@ -28,10 +30,19 @@ public class Main_RecyclerAdapter extends RecyclerView.Adapter<Main_RecyclerAdap
 
         public MyViewHolder(View itemView){
             super(itemView);
+            final View view = itemView;
             this.tv_title = (TextView)itemView.findViewById(R.id.tv_CVTitle);
             this.tv_content = (TextView)itemView.findViewById(R.id.tv_CVCountry);
             this.tv_startDate = (TextView)itemView.findViewById(R.id.tv_CVStart);
             this.tv_endDate = (TextView)itemView.findViewById(R.id.tv_CVEnd);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(view.getContext(), TravelDetail.class);
+                    intent.putExtra("Title", tv_title.getText().toString());
+                    view.getContext().startActivity(intent);
+                }
+            });
         }
     }
 

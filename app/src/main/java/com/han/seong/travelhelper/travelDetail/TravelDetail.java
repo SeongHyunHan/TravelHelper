@@ -71,10 +71,9 @@ public class TravelDetail extends AppCompatActivity{
 
     @Override
     protected void onResume() {
+        super.onResume();
         Intent intent = getIntent();
         getSupportActionBar().setTitle(intent.getStringExtra("Title"));
-
-        super.onResume();
     }
 
     //set up tab title

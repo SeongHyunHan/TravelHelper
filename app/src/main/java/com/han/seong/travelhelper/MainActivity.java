@@ -69,10 +69,6 @@ public class MainActivity extends AppCompatActivity {
 
         settingNavigationDrawer();
 
-
-
-
-
         /* Need to Fix so It will Start after Splash Screen
         boolean isTravelExist = false; //SQL query to check if travel exist
         if(!isTravelExist){
@@ -96,8 +92,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        settingCardView();
         super.onResume();
+        settingCardView();
     }
 
     //Setting NavigationDrawer
@@ -150,7 +146,6 @@ public class MainActivity extends AppCompatActivity {
         if (realmResults.size() == 0) {
             //startActivity(new Intent(this, AddTravel.class));
         }else {
-            myOnClickListener = new MyOnClickListener(this);
             recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
             recyclerView.setHasFixedSize(true);
 
@@ -179,19 +174,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private class MyOnClickListener implements View.OnClickListener {
-        private final Context context;
-        private MyOnClickListener(Context context) {
-            this.context = context;
-        }
-
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(getApplicationContext(), TravelDetail.class);
-            intent.putExtra("Title", data.get(0).getTitle());
-            startActivity(intent);
-        }
-    }
     // ---------End CardView
 
     // Setting Option Menu
