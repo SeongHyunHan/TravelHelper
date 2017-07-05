@@ -1,10 +1,11 @@
 package com.han.seong.travelhelper;
 
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
+import java.util.Date;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -35,12 +36,16 @@ import android.widget.Toast;
 
 import com.han.seong.travelhelper.adapter.AT_SpinnerAdapter;
 import com.han.seong.travelhelper.vo.Person;
+import com.han.seong.travelhelper.vo.Travel;
 
 import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.Realm;
 
 public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+
+    private Realm realm;
 
     //EditText Bind
     @BindView(R.id.edt_travelTitle) EditText edt_title;
@@ -58,6 +63,7 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
     private FloatingActionButton addFAB;
     String[] countries={"USA", "Canada", "Europe", "Japan", "Korea"};
     int flags[] = {R.drawable.ic_us, R.drawable.ic_canada, R.drawable.ic_europe, R.drawable.ic_japan, R.drawable.ic_korea};
+    Double totalBudget;
 
     ArrayList<Person> peopleList;
     ArrayList<String> adapterInfo;
@@ -90,8 +96,6 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Add Travel Info");
 
-
-
         addFAB = (FloatingActionButton)findViewById(R.id.addFAB);
         addFAB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +103,6 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
                 popUpAlertDialog();
             }
         });
-
 
         edt_title.addTextChangedListener(new TextWatcher() {
             @Override
@@ -113,6 +116,9 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
                 tv_title.setText(edt_title.getText());
             }
         });
+
+        totalBudget = 0.0;
+        realm = Realm.getDefaultInstance();
 
     }
 
@@ -161,7 +167,7 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
                 Toast.makeText(this, "About Clicked", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.save:
-                //need to sql query to save travel info
+                saveToDatabase();
                 finish();
                 break;
         }
@@ -219,7 +225,7 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
     private void updateLabel(EditText editText, Calendar myCalendar, int i) {
 
         String myFormat = "MM/dd/yy"; //In which you need put here
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
 
         editText.setText(sdf.format(myCalendar.getTime()));
         switch(i){
@@ -260,6 +266,7 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
                 peopleList.add(p);
                 String fullInfo = "";
                 String balance = String.format("%.2f", p.getBalance());
+                totalBudget += p.getBalance();
                 fullInfo += "Name: " + p.getFirstName() + " " + p.getLastName() + "\nBudget: € " + balance;
                 adapterInfo.add(fullInfo);
                 personAdapter.notifyDataSetChanged();
@@ -289,5 +296,37 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
         AlertDialog dialog = alertDialog.create();
         dialog.show();
 
+    }
+
+    private void saveToDatabase(){
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                try {
+                    Travel travel = realm.createObject(Travel.class);
+                    travel.setTravelNo(1);
+                    travel.setTitle(edt_title.getText().toString());
+                    travel.setCountry(tv_country.getText().toString());
+
+                    String myFormat = "MM/dd/yy"; //In which you need put here
+                    SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+                    Date startDate = sdf.parse(tv_startDate.getText().toString());
+                    travel.setStartDate(startDate);
+                    Date endDate = sdf.parse(tv_endDate.getText().toString());
+                    travel.setEndDate(endDate);
+
+                    travel.setTotalBudget(totalBudget);
+                    travel.setImage("");
+
+                    for(int i = 0 ; i < peopleList.size(); i++){
+                        Person person;
+                        person = peopleList.get(i);
+                        travel.getPeople().add(person);
+                    }
+                }catch (ParseException e) {
+                        e.printStackTrace();
+                }
+            }
+        });
     }
 }

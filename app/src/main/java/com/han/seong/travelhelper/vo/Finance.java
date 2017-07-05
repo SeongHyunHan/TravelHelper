@@ -2,7 +2,9 @@ package com.han.seong.travelhelper.vo;
 
 import java.util.Date;
 
-public class Finance {
+import io.realm.RealmObject;
+
+public class Finance extends RealmObject {
     private String paymentTitle;
     private double price;
     private Date date;

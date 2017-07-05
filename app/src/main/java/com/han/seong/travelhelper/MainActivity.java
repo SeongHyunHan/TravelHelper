@@ -31,6 +31,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private FrameLayout flContainer;
     private DrawerLayout dlDrawer;
     private ActionBarDrawerToggle dtToggle;
+    private Realm mRealm;
 
     //ToolBar
     @BindView(R.id.toolBar) Toolbar toolbar;
@@ -64,10 +66,11 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setLogo(R.drawable.ic_drawer_layout);
 
-        DBManager db = new DBManager(getApplicationContext());
-
         settingNavigationDrawer();
         settingCardView();
+
+        initRealm();
+
 
         /* Need to Fix so It will Start after Splash Screen
         boolean isTravelExist = false; //SQL query to check if travel exist
@@ -201,4 +204,10 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void initRealm(){
+        Realm.init(this);
+        mRealm = Realm.getDefaultInstance();
+    }
 }
+

@@ -2,7 +2,14 @@ package com.han.seong.travelhelper.vo;
 
 import java.util.Date;
 
-public class Travel {
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public class Travel extends RealmObject {
+
+    private int travelNo;
+
     private String title;
     private String country;
     private Date startDate;
@@ -10,6 +17,8 @@ public class Travel {
     private String image;
     private double totalSpent;
     private double totalBudget;
+    private RealmList<Person> people;
+
 
     public Travel(){}
 
@@ -67,5 +76,21 @@ public class Travel {
 
     public void setTotalBudget(double totalBudget) {
         this.totalBudget = totalBudget;
+    }
+
+    public RealmList<Person> getPeople() {
+        return people;
+    }
+
+    public void setPeople(RealmList<Person> people) {
+        this.people = people;
+    }
+
+    public int getTravelNo() {
+        return travelNo;
+    }
+
+    public void setTravelNo(int travelNo) {
+        this.travelNo = travelNo;
     }
 }
