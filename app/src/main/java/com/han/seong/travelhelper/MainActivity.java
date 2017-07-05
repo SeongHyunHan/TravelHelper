@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setLogo(R.drawable.ic_drawer_layout);
 
         settingNavigationDrawer();
-        settingCardView();
+
 
 
 
@@ -92,6 +92,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        settingCardView();
+        super.onResume();
     }
 
     //Setting NavigationDrawer
@@ -183,7 +189,6 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             Intent intent = new Intent(getApplicationContext(), TravelDetail.class);
             intent.putExtra("Title", data.get(0).getTitle());
-            intent.putExtra("Country", data.get(0).getCountry());
             startActivity(intent);
         }
     }

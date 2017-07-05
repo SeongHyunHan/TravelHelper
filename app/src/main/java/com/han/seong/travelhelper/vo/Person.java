@@ -4,9 +4,7 @@ import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class Person extends RealmObject{
-    @PrimaryKey
-    private int personNo;
+public class Person extends RealmObject{    private int personNo;
 
     private String firstName;
     private String lastName;

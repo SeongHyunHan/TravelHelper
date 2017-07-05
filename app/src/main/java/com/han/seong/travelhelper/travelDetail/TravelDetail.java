@@ -21,10 +21,14 @@ import android.widget.TabHost;
 import com.han.seong.travelhelper.R;
 import com.han.seong.travelhelper.adapter.DT_General_RecyclerAdapter;
 import com.han.seong.travelhelper.vo.Finance;
+import com.han.seong.travelhelper.vo.Travel;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class TravelDetail extends AppCompatActivity{
 
@@ -37,10 +41,14 @@ public class TravelDetail extends AppCompatActivity{
     //Floating Action Button
     private FloatingActionButton walletFAB;
 
+    private Realm mRealm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_travel_detail);
+
+        mRealm = Realm.getDefaultInstance();
 
         settingNavigationDrawer();
         setUpTabContent();
@@ -48,7 +56,6 @@ public class TravelDetail extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.dt_ToolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setLogo(R.drawable.ic_drawer_layout);
-        getSupportActionBar().setTitle("This is Placement for Travel Title");
 
         recyclerView = (RecyclerView)findViewById(R.id.td_general_recyclerView);
         initData();
@@ -60,6 +67,14 @@ public class TravelDetail extends AppCompatActivity{
                 startActivity(new Intent(getApplicationContext(), AddFinance.class));
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        Intent intent = getIntent();
+        getSupportActionBar().setTitle(intent.getStringExtra("Title"));
+
+        super.onResume();
     }
 
     //set up tab title

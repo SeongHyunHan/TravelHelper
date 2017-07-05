@@ -10,6 +10,7 @@ import com.han.seong.travelhelper.MainActivity;
 import com.han.seong.travelhelper.vo.Travel;
 import com.han.seong.travelhelper.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +23,15 @@ public class Main_RecyclerAdapter extends RecyclerView.Adapter<Main_RecyclerAdap
 
         TextView tv_title;
         TextView tv_content;
+        TextView tv_startDate;
+        TextView tv_endDate;
 
         public MyViewHolder(View itemView){
             super(itemView);
             this.tv_title = (TextView)itemView.findViewById(R.id.tv_CVTitle);
             this.tv_content = (TextView)itemView.findViewById(R.id.tv_CVCountry);
+            this.tv_startDate = (TextView)itemView.findViewById(R.id.tv_CVStart);
+            this.tv_endDate = (TextView)itemView.findViewById(R.id.tv_CVEnd);
         }
     }
 
@@ -51,9 +56,17 @@ public class Main_RecyclerAdapter extends RecyclerView.Adapter<Main_RecyclerAdap
     public void onBindViewHolder(Main_RecyclerAdapter.MyViewHolder holder, final int position) {
         TextView tv_title = holder.tv_title;
         TextView tv_content = holder.tv_content;
+        TextView tv_startDate = holder.tv_startDate;
+        TextView tv_endDate = holder.tv_endDate;
 
         tv_title.setText(travelList.get(position).getTitle());
         tv_content.setText(travelList.get(position).getCountry());
+
+        String myFormat = "MM/dd/yy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+        tv_startDate.setText("Start Date: " + sdf.format(travelList.get(position).getStartDate()));
+        tv_endDate.setText("End Date: " + sdf.format(travelList.get(position).getEndDate()));
+
     }
 
     @Override
