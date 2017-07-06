@@ -143,7 +143,7 @@ public class TravelDetail extends AppCompatActivity{
     // -------End Navigation Drawer
 
     private void getFinanceData(){
-        Travel realmResult = mRealm.where(Travel.class).equalTo("title", "ttrr").findFirst();
+        Travel realmResult = mRealm.where(Travel.class).equalTo("title", "gdfj").findFirst();
         List<Person> person = realmResult.getPeople();
         List<Finance> financeList = new ArrayList<Finance>();
         Boolean exist = false;

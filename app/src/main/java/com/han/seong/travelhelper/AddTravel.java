@@ -262,6 +262,7 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
                     p.setBalance(Double.parseDouble(edt_budget.getText().toString()));
                 }
                 p.setOwnBudget(0.00);
+                p.setSpent(0.00);
 
                 peopleList.add(p);
                 String fullInfo = "";

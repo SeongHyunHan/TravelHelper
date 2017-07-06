@@ -9,6 +9,7 @@ public class Person extends RealmObject{
     private String lastName;
     private double ownBudget;
     private double balance;
+    private double spent;
     private RealmList<Finance> finance;
 
     public String getFirstName() {
@@ -49,5 +50,13 @@ public class Person extends RealmObject{
 
     public void setFinance(RealmList<Finance> finance) {
         this.finance = finance;
+    }
+
+    public double getSpent() {
+        return spent;
+    }
+
+    public void setSpent(double spent) {
+        this.spent = spent;
     }
 }
