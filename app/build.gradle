@@ -19,7 +19,11 @@ android {
         }
     }
 }
-
+repositories {
+    maven {
+        url 'https://github.com/uPhyca/stetho-realm/raw/master/maven-repo'
+    }
+}
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -35,4 +39,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:11.0.1'
     compile 'com.jakewharton:butterknife:8.6.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+
+    compile 'com.facebook.stetho:stetho:1.5.0'
+    compile 'com.uphyca:stetho_realm:2.0.0'
 }

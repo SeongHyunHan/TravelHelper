@@ -4,8 +4,7 @@ import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class Person extends RealmObject{    private int personNo;
-
+public class Person extends RealmObject{
     private String firstName;
     private String lastName;
     private double ownBudget;
@@ -50,13 +49,5 @@ public class Person extends RealmObject{    private int personNo;
 
     public void setFinance(RealmList<Finance> finance) {
         this.finance = finance;
-    }
-
-    public int getPersonNo() {
-        return personNo;
-    }
-
-    public void setPersonNo(int personNo) {
-        this.personNo = personNo;
     }
 }

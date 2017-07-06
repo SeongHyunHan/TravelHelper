@@ -321,7 +321,6 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
 
                     for (int i = 0; i < peopleList.size(); i++) {
                         Person person = peopleList.get(i);
-                        person.setPersonNo(i);
                         travel.getPeople().add(person);
                     }
                 } catch (ParseException e) {

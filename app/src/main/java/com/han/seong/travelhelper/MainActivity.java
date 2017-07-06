@@ -22,9 +22,11 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.facebook.stetho.Stetho;
 import com.han.seong.travelhelper.adapter.Main_RecyclerAdapter;
 import com.han.seong.travelhelper.travelDetail.TravelDetail;
 import com.han.seong.travelhelper.vo.Travel;
+import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
 
 import java.util.ArrayList;
 
@@ -61,6 +63,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, SplashScreen.class));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Stetho.initialize(
+                Stetho.newInitializerBuilder(this)
+                .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                .enableWebKitInspector(RealmInspectorModulesProvider.builder(this).build())
+                .build());
         ButterKnife.bind(this);
 
         initRealm();

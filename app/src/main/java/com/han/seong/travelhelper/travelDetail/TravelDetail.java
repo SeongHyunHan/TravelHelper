@@ -11,6 +11,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,6 +22,7 @@ import android.widget.TabHost;
 import com.han.seong.travelhelper.R;
 import com.han.seong.travelhelper.adapter.DT_General_RecyclerAdapter;
 import com.han.seong.travelhelper.vo.Finance;
+import com.han.seong.travelhelper.vo.Person;
 import com.han.seong.travelhelper.vo.Travel;
 
 import java.util.ArrayList;
@@ -42,6 +44,7 @@ public class TravelDetail extends AppCompatActivity{
     private FloatingActionButton walletFAB;
 
     private Realm mRealm;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,6 @@ public class TravelDetail extends AppCompatActivity{
         getSupportActionBar().setLogo(R.drawable.ic_drawer_layout);
 
         recyclerView = (RecyclerView)findViewById(R.id.td_general_recyclerView);
-        initData();
 
         walletFAB = (FloatingActionButton)findViewById(R.id.walletFAB);
         walletFAB.setOnClickListener(new View.OnClickListener() {
@@ -72,9 +74,11 @@ public class TravelDetail extends AppCompatActivity{
     @Override
     protected void onResume() {
         super.onResume();
-        Intent intent = getIntent();
+        intent = getIntent();
         getSupportActionBar().setTitle(intent.getStringExtra("Title"));
         getSupportActionBar().setSubtitle(intent.getStringExtra("Subtitle"));
+
+        getFinanceData();
     }
 
     //set up tab title
@@ -138,21 +142,24 @@ public class TravelDetail extends AppCompatActivity{
     }
     // -------End Navigation Drawer
 
-    private void initData(){
+    private void getFinanceData(){
+        Travel realmResult = mRealm.where(Travel.class).equalTo("title", "ttrr").findFirst();
+        List<Person> person = realmResult.getPeople();
         List<Finance> financeList = new ArrayList<Finance>();
-        Date date = new Date();
-        for(int i = 0; i <10; i++){
-            Finance finance = new Finance();
-            finance.setPaymentTitle("test" + i);
-            finance.setDate(date);
-            finance.setPrice(i);
-            financeList.add(finance);
+        Boolean exist = false;
+        for(int i = 0; i < person.size(); i++){
+            for(int j = 0; j < person.get(i).getFinance().size(); j++) {
+                Finance finance = person.get(i).getFinance().get(j);
+                financeList.add(finance);
+                exist = true;
+            }
         }
-
-        recyclerView.setAdapter(new DT_General_RecyclerAdapter(financeList, R.layout.dt_overview_row));
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        if(exist) {
+            recyclerView.setAdapter(new DT_General_RecyclerAdapter(financeList, R.layout.dt_overview_row));
+            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        }
     }
 
 
