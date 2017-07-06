@@ -41,7 +41,7 @@ public class AT_SpinnerAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        view = inflater.inflate(R.layout.at_customer_spinner, null);
+        view = inflater.inflate(R.layout.at_custom_spinner, null);
         ImageView image = (ImageView)view.findViewById(R.id.spn_iv);
         TextView name = (TextView)view.findViewById(R.id.spn_tv);
 
