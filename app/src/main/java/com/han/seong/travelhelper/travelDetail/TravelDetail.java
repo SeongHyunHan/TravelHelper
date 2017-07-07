@@ -21,6 +21,7 @@ import android.widget.TabHost;
 
 import com.han.seong.travelhelper.R;
 import com.han.seong.travelhelper.adapter.DT_General_RecyclerAdapter;
+import com.han.seong.travelhelper.adapter.DT_Person_RecyclerAdapter;
 import com.han.seong.travelhelper.vo.Finance;
 import com.han.seong.travelhelper.vo.Person;
 import com.han.seong.travelhelper.vo.Travel;
@@ -39,7 +40,7 @@ public class TravelDetail extends AppCompatActivity{
     private FrameLayout flContainer;
     private DrawerLayout dlDrawer;
     private ActionBarDrawerToggle dtToggle;
-    private RecyclerView recyclerView;
+    private RecyclerView generalRecyclerView, personRecyclerView;
     //Floating Action Button
     private FloatingActionButton walletFAB;
 
@@ -60,7 +61,8 @@ public class TravelDetail extends AppCompatActivity{
         setSupportActionBar(toolbar);
         getSupportActionBar().setLogo(R.drawable.ic_drawer_layout);
 
-        recyclerView = (RecyclerView)findViewById(R.id.td_general_recyclerView);
+        generalRecyclerView = (RecyclerView)findViewById(R.id.td_general_recyclerView);
+        personRecyclerView = (RecyclerView)findViewById(R.id.td_person_recyclerView);
 
         walletFAB = (FloatingActionButton)findViewById(R.id.walletFAB);
         walletFAB.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +81,7 @@ public class TravelDetail extends AppCompatActivity{
         getSupportActionBar().setSubtitle(intent.getStringExtra("Subtitle"));
 
         getFinanceData();
+        getPersonData();
     }
 
     //set up tab title
@@ -155,10 +158,21 @@ public class TravelDetail extends AppCompatActivity{
             }
         }
         if(exist) {
-            recyclerView.setAdapter(new DT_General_RecyclerAdapter(financeList, R.layout.dt_overview_row));
-            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-            recyclerView.setItemAnimator(new DefaultItemAnimator());
-            recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+            generalRecyclerView.setAdapter(new DT_General_RecyclerAdapter(financeList, R.layout.dt_overview_row));
+            generalRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            generalRecyclerView.setItemAnimator(new DefaultItemAnimator());
+            generalRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        }
+    }
+
+    private void getPersonData(){
+        Travel realmResult = mRealm.where(Travel.class).equalTo("title", "gdfj").findFirst();
+        List<Person> personList = realmResult.getPeople();
+        if(personList.size() != 0) {
+            personRecyclerView.setAdapter(new DT_Person_RecyclerAdapter(personList, R.layout.dt_person_row));
+            personRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            personRecyclerView.setItemAnimator(new DefaultItemAnimator());
+            personRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         }
     }
 
