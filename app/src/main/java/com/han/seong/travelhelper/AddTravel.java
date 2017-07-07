@@ -60,15 +60,20 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
     @BindView(R.id.tv_at_endDateInfo) TextView tv_endDate;
     @BindView(R.id.tv_at_peopleInfo) TextView tv_people;
 
-    private FloatingActionButton addFAB;
+    @BindView(R.id.addFAB) FloatingActionButton addFAB;
+
+    @BindView(R.id.at_toolBar) Toolbar toolbar;
+
+    @BindView(R.id.lv_at_people) ListView lv_peopleInfo;
+
+    @BindView(R.id.countrySpinner) Spinner spin;
+
     String[] countries={"USA", "Canada", "Europe", "Japan", "Korea"};
     int flags[] = {R.drawable.ic_us, R.drawable.ic_canada, R.drawable.ic_europe, R.drawable.ic_japan, R.drawable.ic_korea};
     Double totalBudget;
-
     ArrayList<Person> peopleList;
     ArrayList<String> adapterInfo;
     ArrayAdapter personAdapter;
-    ListView lv_peopleInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +81,6 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
         setContentView(R.layout.activity_add_travel);
         ButterKnife.bind(this);
 
-        Spinner spin =(Spinner)findViewById(R.id.countrySpinner);
         spin.setOnItemSelectedListener(this);
 
         AT_SpinnerAdapter at_spinnerAdapter = new AT_SpinnerAdapter(getApplicationContext(), flags, countries);
@@ -84,7 +88,6 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
 
         peopleList = new ArrayList<Person>();
         adapterInfo = new ArrayList<String>();
-        lv_peopleInfo = (ListView)findViewById(R.id.lv_at_people);
         personAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, adapterInfo);
         lv_peopleInfo.setAdapter(personAdapter);
 
@@ -92,11 +95,9 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
         setUpStartCalendar();
         setUpEndCalendar();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.at_toolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Add Travel Info");
 
-        addFAB = (FloatingActionButton)findViewById(R.id.addFAB);
         addFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

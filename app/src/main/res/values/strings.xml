@@ -11,4 +11,6 @@
     <string name="td_tab1">전체</string>
     <string name="td_tab2">통계</string>
     <string name="td_tab3">차트</string>
+
+    <string name="later">추후 구현!</string>
 </resources>

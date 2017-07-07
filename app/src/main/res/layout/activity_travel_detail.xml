@@ -92,8 +92,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_margin="20dp"
-                                android:elevation="100dp"
-                                android:background="@android:color/holo_green_light">
+                                android:elevation="100dp">
 
                                 <android.support.v7.widget.RecyclerView
                                     android:id="@+id/td_person_recyclerView"
@@ -104,14 +103,17 @@
                             </FrameLayout>
                         </LinearLayout>
 
-
-
-
                         <LinearLayout
                             android:id="@+id/dt_tab3"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:text="@string/later"/>
                         </LinearLayout>
                     </FrameLayout>
                 </LinearLayout>

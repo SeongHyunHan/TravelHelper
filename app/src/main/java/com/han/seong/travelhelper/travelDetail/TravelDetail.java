@@ -30,19 +30,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class TravelDetail extends AppCompatActivity{
 
     private String[] navItems = {"Home", "Setting", "About"};
-    private ListView lvNavList;
-    private FrameLayout flContainer;
-    private DrawerLayout dlDrawer;
+
+    @BindView(R.id.td_general_recyclerView) RecyclerView generalRecyclerView;
+    @BindView(R.id.td_person_recyclerView) RecyclerView personRecyclerView;
+    @BindView(R.id.dt_ToolBar) Toolbar toolbar;
+    @BindView(R.id.walletFAB) FloatingActionButton walletFAB;
+    @BindView(R.id.activity_dt_nav_list) ListView lvNavList;
+    @BindView(R.id.activity_dt_drawer) DrawerLayout dlDrawer;
     private ActionBarDrawerToggle dtToggle;
-    private RecyclerView generalRecyclerView, personRecyclerView;
-    //Floating Action Button
-    private FloatingActionButton walletFAB;
 
     private Realm mRealm;
     private Intent intent;
@@ -51,20 +54,16 @@ public class TravelDetail extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_travel_detail);
+        ButterKnife.bind(this);
 
         mRealm = Realm.getDefaultInstance();
 
         settingNavigationDrawer();
         setUpTabContent();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.dt_ToolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setLogo(R.drawable.ic_drawer_layout);
 
-        generalRecyclerView = (RecyclerView)findViewById(R.id.td_general_recyclerView);
-        personRecyclerView = (RecyclerView)findViewById(R.id.td_person_recyclerView);
-
-        walletFAB = (FloatingActionButton)findViewById(R.id.walletFAB);
         walletFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,9 +102,6 @@ public class TravelDetail extends AppCompatActivity{
 
     //Setting NavigationDrawer
     private void settingNavigationDrawer() {
-        lvNavList=(ListView)findViewById(R.id.activity_dt_nav_list);
-        dlDrawer = (DrawerLayout)findViewById(R.id.activity_dt_drawer);
-
         lvNavList.setAdapter(
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, navItems));
         lvNavList.setOnItemClickListener(new TravelDetail.DrawerItemClickListener());
