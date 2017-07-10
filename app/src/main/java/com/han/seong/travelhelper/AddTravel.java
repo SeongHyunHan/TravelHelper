@@ -302,34 +302,33 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
 
     private void saveToDatabase(){
         final Travel travel = new Travel();
+        try {
+            long travelId = realm.where(Travel.class).count();
+            travel.setTravelNo((int) travelId + 1);
+            travel.setTitle(edt_title.getText().toString());
+            travel.setCountry(tv_country.getText().toString());
+
+            String myFormat = "MM/dd/yy";
+            SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+            Date startDate = sdf.parse(tv_startDate.getText().toString());
+            travel.setStartDate(startDate);
+            Date endDate = sdf.parse(tv_endDate.getText().toString());
+            travel.setEndDate(endDate);
+
+            travel.setTotalBudget(totalBudget);
+            travel.setImage("");
+
+            for (int i = 0; i < peopleList.size(); i++) {
+                Person person = peopleList.get(i);
+                travel.getPeople().add(person);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                try {
-                    long travelId = realm.where(Travel.class).count();
-                    travel.setTravelNo((int)travelId+1);
-                    travel.setTitle(edt_title.getText().toString());
-                    travel.setCountry(tv_country.getText().toString());
-
-                    String myFormat = "MM/dd/yy";
-                    SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
-                    Date startDate = sdf.parse(tv_startDate.getText().toString());
-                    travel.setStartDate(startDate);
-                    Date endDate = sdf.parse(tv_endDate.getText().toString());
-                    travel.setEndDate(endDate);
-
-                    travel.setTotalBudget(totalBudget);
-                    travel.setImage("");
-
-                    for (int i = 0; i < peopleList.size(); i++) {
-                        Person person = peopleList.get(i);
-                        travel.getPeople().add(person);
-                    }
-
                     realm.copyToRealmOrUpdate(travel);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
             }
         }, new Realm.Transaction.OnSuccess() {
             @Override
