@@ -2,27 +2,17 @@ package com.han.seong.travelhelper.vo;
 
 import io.realm.RealmObject;
 
-
 public class PaymentInfo extends RealmObject {
-    private String firstName;
-    private String lastName;
+    private String paymentTitle;
     private String paymentType;
     private Double amountPaid;
 
-    public String getFirstName() {
-        return firstName;
+    public String getPaymentTitle(){
+        return paymentTitle;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setPaymentTitle(String paymentTitle){
+        this.paymentTitle = paymentTitle;
     }
 
     public String getPaymentType() {

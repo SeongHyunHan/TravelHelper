@@ -2,21 +2,20 @@ package com.han.seong.travelhelper.vo;
 
 import java.util.Date;
 
-import io.realm.RealmList;
 import io.realm.RealmObject;
 
 public class Finance extends RealmObject {
     private String paymentTitle;
-    private double price;
     private Date date;
-    private RealmList<PaymentInfo> paymentInfo;
+    private double price;
+    private String paymentType;
 
-    public double getPrice() {
-        return price;
+    public String getPaymentTitle() {
+        return paymentTitle;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setPaymentTitle(String paymentTitle) {
+        this.paymentTitle = paymentTitle;
     }
 
     public Date getDate() {
@@ -27,19 +26,19 @@ public class Finance extends RealmObject {
         this.date = date;
     }
 
-    public String getPaymentTitle(){
-        return paymentTitle;
+    public double getPrice() {
+        return price;
     }
 
-    public void setPaymentTitle(String paymentTitle){
-        this.paymentTitle = paymentTitle;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
-    public RealmList<PaymentInfo> getPaymentInfo() {
-        return paymentInfo;
+    public String getPaymentType() {
+        return paymentType;
     }
 
-    public void setPaymentInfo(RealmList<PaymentInfo> paymentInfo) {
-        this.paymentInfo = paymentInfo;
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
     }
 }

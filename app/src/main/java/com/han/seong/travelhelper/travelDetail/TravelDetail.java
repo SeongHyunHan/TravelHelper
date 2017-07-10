@@ -143,15 +143,13 @@ public class TravelDetail extends AppCompatActivity{
 
     private void getFinanceData(){
         Travel realmResult = mRealm.where(Travel.class).equalTo("title", "gdfj").findFirst();
-        List<Person> person = realmResult.getPeople();
+        List<Finance> finances = realmResult.getFinances();
         List<Finance> financeList = new ArrayList<Finance>();
         Boolean exist = false;
-        for(int i = 0; i < person.size(); i++){
-            for(int j = 0; j < person.get(i).getFinance().size(); j++) {
-                Finance finance = person.get(i).getFinance().get(j);
+        for(int i = 0; i < finances.size(); i++){
+                Finance finance = finances.get(i);
                 financeList.add(finance);
                 exist = true;
-            }
         }
         if(exist) {
             generalRecyclerView.setAdapter(new DT_General_RecyclerAdapter(financeList, R.layout.dt_overview_row));

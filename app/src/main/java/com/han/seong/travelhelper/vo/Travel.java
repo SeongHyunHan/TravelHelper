@@ -15,6 +15,7 @@ public class Travel extends RealmObject {
     private double totalSpent;
     private double totalBudget;
     private RealmList<Person> people;
+    private RealmList<Finance> finances;
 
 
     public Travel(){}
@@ -89,5 +90,13 @@ public class Travel extends RealmObject {
 
     public void setTravelNo(int travelNo) {
         this.travelNo = travelNo;
+    }
+
+    public RealmList<Finance> getFinances() {
+        return finances;
+    }
+
+    public void setFinances(RealmList<Finance> finances) {
+        this.finances = finances;
     }
 }

@@ -11,32 +11,38 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.han.seong.travelhelper.AddTravel;
 import com.han.seong.travelhelper.R;
 import com.han.seong.travelhelper.adapter.AF_RecyclerAdapter;
 import com.han.seong.travelhelper.adapter.AF_SpinnerAdapter;
-import com.han.seong.travelhelper.adapter.Main_RecyclerAdapter;
+import com.han.seong.travelhelper.vo.Finance;
+import com.han.seong.travelhelper.vo.PaymentInfo;
 import com.han.seong.travelhelper.vo.Person;
 import com.han.seong.travelhelper.vo.Travel;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
-import io.realm.RealmResults;
+import io.realm.RealmAsyncTask;
 
 public class AddFinance extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     private Realm mRealm;
 
+    @BindView(R.id.af_edtPaymentTitle) EditText paymentTitle;
+    @BindView(R.id.af_edtDate) EditText paymentDate;
+    @BindView(R.id.af_edtPrice) EditText totalPrice;
+
     @BindView(R.id.af_person_recyclerView) RecyclerView recyclerView;
+
     @BindView(R.id.af_toolBar) Toolbar toolbar;
+
+
     private static RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private static ArrayList<Person> data;
@@ -58,8 +64,6 @@ public class AddFinance extends AppCompatActivity implements AdapterView.OnItemS
 
         AF_SpinnerAdapter af_spinnerAdapter = new AF_SpinnerAdapter(getApplicationContext(), categories);
         spin.setAdapter(af_spinnerAdapter);
-
-
     }
 
     @Override
@@ -102,27 +106,62 @@ public class AddFinance extends AppCompatActivity implements AdapterView.OnItemS
     }
 
     private void saveToDatabase() {
-            mRealm.executeTransactionAsync(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
+        RealmAsyncTask realmAsyncTask = mRealm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                Finance finance = new Finance();
+                finance.setPaymentTitle(paymentTitle.getText().toString());
 
-                }
-            }, new Realm.Transaction.OnSuccess() {
-                @Override
-                public void onSuccess() {
-                    Toast.makeText(AddFinance.this, "Insert Successful", Toast.LENGTH_SHORT).show();
-                }
-            }, new Realm.Transaction.OnError() {
-                @Override
-                public void onError(Throwable error) {
+                PaymentInfo payment = new PaymentInfo();
+                payment.setPaymentTitle(paymentTitle.getText().toString());
 
-                    Toast.makeText(AddFinance.this, "Error!", Toast.LENGTH_SHORT).show();
-                }
-            });
+                Travel realmResult = mRealm.where(Travel.class).equalTo("title", "gdfj").findFirst();
+                realmResult.getFinances().add(finance);
+
+
+
+                   /*
+                    try {
+                        Travel travel = realm.createObject(Travel.class);
+                        long travelId = realm.where(Travel.class).count();
+                        travel.setTravelNo((int)travelId+1);
+                        travel.setTitle(edt_title.getText().toString());
+                        travel.setCountry(tv_country.getText().toString());
+
+                        String myFormat = "MM/dd/yy"; //In which you need put here
+                        SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+                        Date startDate = sdf.parse(tv_startDate.getText().toString());
+                        travel.setStartDate(startDate);
+                        Date endDate = sdf.parse(tv_endDate.getText().toString());
+                        travel.setEndDate(endDate);
+
+                        travel.setTotalBudget(totalBudget);
+                        travel.setImage("");
+
+                        for (int i = 0; i < peopleList.size(); i++) {
+                            Person person = peopleList.get(i);
+                            travel.getPeople().add(person);
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    */
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(AddFinance.this, "Insert Successful", Toast.LENGTH_SHORT).show();
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+
+                Toast.makeText(AddFinance.this, "Error!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void settingCardView() {
-            recyclerView = (RecyclerView) findViewById(R.id.af_person_recyclerView);
             recyclerView.setHasFixedSize(true);
 
             layoutManager = new LinearLayoutManager(this);
@@ -133,7 +172,6 @@ public class AddFinance extends AppCompatActivity implements AdapterView.OnItemS
 
             adapter = new AF_RecyclerAdapter(data, R.layout.af_person_row);
             recyclerView.setAdapter(adapter);
-
     }
 
     private ArrayList<Person> addPersonData() {

@@ -10,7 +10,7 @@ public class Person extends RealmObject{
     private double ownBudget;
     private double balance;
     private double spent;
-    private RealmList<Finance> finance;
+    private RealmList<PaymentInfo> paymentInfo;
 
     public String getFirstName() {
         return firstName;
@@ -44,19 +44,19 @@ public class Person extends RealmObject{
         this.balance = balance;
     }
 
-    public RealmList<Finance> getFinance() {
-        return finance;
-    }
-
-    public void setFinance(RealmList<Finance> finance) {
-        this.finance = finance;
-    }
-
     public double getSpent() {
         return spent;
     }
 
     public void setSpent(double spent) {
         this.spent = spent;
+    }
+
+    public RealmList<PaymentInfo> getPaymentInfo() {
+        return paymentInfo;
+    }
+
+    public void setPaymentInfo(RealmList<PaymentInfo> paymentInfo) {
+        this.paymentInfo = paymentInfo;
     }
 }
