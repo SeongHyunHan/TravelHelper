@@ -301,17 +301,17 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
     }
 
     private void saveToDatabase(){
+        final Travel travel = new Travel();
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
                 try {
-                    Travel travel = realm.createObject(Travel.class);
                     long travelId = realm.where(Travel.class).count();
                     travel.setTravelNo((int)travelId+1);
                     travel.setTitle(edt_title.getText().toString());
                     travel.setCountry(tv_country.getText().toString());
 
-                    String myFormat = "MM/dd/yy"; //In which you need put here
+                    String myFormat = "MM/dd/yy";
                     SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
                     Date startDate = sdf.parse(tv_startDate.getText().toString());
                     travel.setStartDate(startDate);
@@ -325,6 +325,8 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
                         Person person = peopleList.get(i);
                         travel.getPeople().add(person);
                     }
+
+                    realm.copyToRealmOrUpdate(travel);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }

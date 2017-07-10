@@ -4,9 +4,12 @@ import java.util.Date;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class Travel extends RealmObject {
+    @PrimaryKey
     private int travelNo;
+
     private String title;
     private String country;
     private Date startDate;
