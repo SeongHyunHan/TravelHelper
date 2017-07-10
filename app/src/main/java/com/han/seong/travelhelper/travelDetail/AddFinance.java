@@ -1,5 +1,7 @@
 package com.han.seong.travelhelper.travelDetail;
 
+import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -11,10 +13,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.han.seong.travelhelper.AddTravel;
 import com.han.seong.travelhelper.R;
 import com.han.seong.travelhelper.adapter.AF_RecyclerAdapter;
 import com.han.seong.travelhelper.adapter.AF_SpinnerAdapter;
@@ -23,7 +27,10 @@ import com.han.seong.travelhelper.vo.PaymentInfo;
 import com.han.seong.travelhelper.vo.Person;
 import com.han.seong.travelhelper.vo.Travel;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -47,6 +54,7 @@ public class AddFinance extends AppCompatActivity implements AdapterView.OnItemS
     private RecyclerView.LayoutManager layoutManager;
     private static ArrayList<Person> data;
 
+    private Intent intent;
     private int categories[] = {R.drawable.ic_hotel, R.drawable.ic_transit, R.drawable.ic_parking, R.drawable.ic_food, R.drawable.ic_drink, R.drawable.ic_etc };
 
     @Override
@@ -64,11 +72,14 @@ public class AddFinance extends AppCompatActivity implements AdapterView.OnItemS
 
         AF_SpinnerAdapter af_spinnerAdapter = new AF_SpinnerAdapter(getApplicationContext(), categories);
         spin.setAdapter(af_spinnerAdapter);
+
+        setUpDate();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        intent = getIntent();
         settingCardView();
     }
 
@@ -105,20 +116,48 @@ public class AddFinance extends AppCompatActivity implements AdapterView.OnItemS
         return super.onOptionsItemSelected(item);
     }
 
+    public void setUpDate(){
+
+        final Calendar myCalendar = Calendar.getInstance();
+
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener(){
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, month);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel(paymentDate, myCalendar, 0);
+            }
+        };
+
+       paymentDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(AddFinance.this, date, myCalendar.get(Calendar.YEAR),
+                        myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+    }
+
+    private void updateLabel(EditText editText, Calendar myCalendar, int i) {
+
+        String myFormat = "MM/dd/yy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+
+        editText.setText(sdf.format(myCalendar.getTime()));
+    }
+
     private void saveToDatabase() {
         RealmAsyncTask realmAsyncTask = mRealm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
                 Finance finance = new Finance();
                 finance.setPaymentTitle(paymentTitle.getText().toString());
+                finance.setPrice(0.00);
+                finance.setDate(new Date());
 
-                PaymentInfo payment = new PaymentInfo();
-                payment.setPaymentTitle(paymentTitle.getText().toString());
-
-                Travel realmResult = mRealm.where(Travel.class).equalTo("title", "gdfj").findFirst();
+                Travel realmResult = mRealm.where(Travel.class).equalTo("title", intent.getStringExtra("title")).findFirst();
                 realmResult.getFinances().add(finance);
-
-
 
                    /*
                     try {

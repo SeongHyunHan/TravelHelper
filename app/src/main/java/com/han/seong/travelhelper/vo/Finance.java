@@ -8,7 +8,6 @@ public class Finance extends RealmObject {
     private String paymentTitle;
     private Date date;
     private double price;
-    private String paymentType;
 
     public String getPaymentTitle() {
         return paymentTitle;
@@ -32,13 +31,5 @@ public class Finance extends RealmObject {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public String getPaymentType() {
-        return paymentType;
-    }
-
-    public void setPaymentType(String paymentType) {
-        this.paymentType = paymentType;
     }
 }

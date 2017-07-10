@@ -67,6 +67,7 @@ public class TravelDetail extends AppCompatActivity{
         walletFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                intent.putExtra("title", intent.getStringExtra("Title"));
                 startActivity(new Intent(getApplicationContext(), AddFinance.class));
             }
         });
@@ -142,7 +143,8 @@ public class TravelDetail extends AppCompatActivity{
     // -------End Navigation Drawer
 
     private void getFinanceData(){
-        Travel realmResult = mRealm.where(Travel.class).equalTo("title", "gdfj").findFirst();
+        String title = intent.getStringExtra("Title");
+        Travel realmResult = mRealm.where(Travel.class).equalTo("title", title).findFirst();
         List<Finance> finances = realmResult.getFinances();
         List<Finance> financeList = new ArrayList<Finance>();
         Boolean exist = false;
@@ -160,7 +162,8 @@ public class TravelDetail extends AppCompatActivity{
     }
 
     private void getPersonData(){
-        Travel realmResult = mRealm.where(Travel.class).equalTo("title", "gdfj").findFirst();
+        String title = intent.getStringExtra("Title");
+        Travel realmResult = mRealm.where(Travel.class).equalTo("title", title).findFirst();
         List<Person> personList = realmResult.getPeople();
         if(personList.size() != 0) {
             personRecyclerView.setAdapter(new DT_Person_RecyclerAdapter(personList, R.layout.dt_person_row));
