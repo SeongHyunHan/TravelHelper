@@ -33,6 +33,7 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 public class TravelDetail extends AppCompatActivity{
@@ -49,28 +50,25 @@ public class TravelDetail extends AppCompatActivity{
 
     private Realm mRealm;
     private Intent intent;
+    private String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_travel_detail);
         ButterKnife.bind(this);
-
-        mRealm = Realm.getDefaultInstance();
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                //.schemaVersion(0)
+                //.migration(new Migration())
+                .deleteRealmIfMigrationNeeded() //개발중 일때 Realm 객체를 전부 지우고 시작.
+                .build();
+        mRealm = Realm.getInstance(config);
 
         settingNavigationDrawer();
         setUpTabContent();
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setLogo(R.drawable.ic_drawer_layout);
-
-        walletFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent.putExtra("title", intent.getStringExtra("Title"));
-                startActivity(new Intent(getApplicationContext(), AddFinance.class));
-            }
-        });
     }
 
     @Override
@@ -80,9 +78,21 @@ public class TravelDetail extends AppCompatActivity{
         getSupportActionBar().setTitle(intent.getStringExtra("Title"));
         getSupportActionBar().setSubtitle(intent.getStringExtra("Subtitle"));
 
+        title = intent.getStringExtra("realmSearch");
+
         getFinanceData();
         getPersonData();
+
+        walletFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("title", title);
+                startActivity(new Intent(getApplicationContext(), AddFinance.class));
+            }
+        });
     }
+
+
 
     //set up tab title
     public void setUpTabContent(){
@@ -143,7 +153,6 @@ public class TravelDetail extends AppCompatActivity{
     // -------End Navigation Drawer
 
     private void getFinanceData(){
-        String title = intent.getStringExtra("Title");
         Travel realmResult = mRealm.where(Travel.class).equalTo("title", title).findFirst();
         List<Finance> finances = realmResult.getFinances();
         List<Finance> financeList = new ArrayList<Finance>();
@@ -162,7 +171,6 @@ public class TravelDetail extends AppCompatActivity{
     }
 
     private void getPersonData(){
-        String title = intent.getStringExtra("Title");
         Travel realmResult = mRealm.where(Travel.class).equalTo("title", title).findFirst();
         List<Person> personList = realmResult.getPeople();
         if(personList.size() != 0) {

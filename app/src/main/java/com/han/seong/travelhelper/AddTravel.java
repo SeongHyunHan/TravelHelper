@@ -41,6 +41,8 @@ import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmList;
 import io.realm.RealmResults;
 
 public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
@@ -119,7 +121,12 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
         });
 
         totalBudget = 0.0;
-        realm = Realm.getDefaultInstance();
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                //.schemaVersion(0)
+                //.migration(new Migration())
+                .deleteRealmIfMigrationNeeded() //개발중 일때 Realm 객체를 전부 지우고 시작.
+                .build();
+        realm = Realm.getInstance(config);
 
     }
 
@@ -317,11 +324,7 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
 
             travel.setTotalBudget(totalBudget);
             travel.setImage("");
-
-            for (int i = 0; i < peopleList.size(); i++) {
-                Person person = peopleList.get(i);
-                travel.getPeople().add(person);
-            }
+            travel.setPeople(new RealmList<Person>(peopleList.toArray(new Person[peopleList.size()])));
         } catch (ParseException e) {
             e.printStackTrace();
         }

@@ -40,6 +40,7 @@ public class Main_RecyclerAdapter extends RecyclerView.Adapter<Main_RecyclerAdap
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(view.getContext(), TravelDetail.class);
+                    intent.putExtra("realmSearch", tv_title.getText().toString());
                     intent.putExtra("Title", tv_title.getText().toString() + " (" + tv_content.getText().toString() + ")");
                     intent.putExtra("Subtitle", tv_startDate.getText().toString() + " ~ " + tv_endDate.getText().toString());
                     view.getContext().startActivity(intent);

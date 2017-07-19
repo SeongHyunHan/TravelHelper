@@ -9,7 +9,6 @@ import io.realm.annotations.Required;
 
 public class Travel extends RealmObject {
     @PrimaryKey
-    @Required
     private int travelNo;
 
     private String title;

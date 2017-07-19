@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.facebook.stetho.Stetho;
 import com.han.seong.travelhelper.adapter.Main_RecyclerAdapter;
+import com.han.seong.travelhelper.realm.Migration;
 import com.han.seong.travelhelper.travelDetail.TravelDetail;
 import com.han.seong.travelhelper.vo.Travel;
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
@@ -33,6 +34,8 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmMigration;
 import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
@@ -201,7 +204,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void initRealm(){
         Realm.init(this);
-        mRealm = Realm.getDefaultInstance();
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                //.schemaVersion(0)
+                //.migration(new Migration())
+                .deleteRealmIfMigrationNeeded() //개발중 일때 Realm 객체를 전부 지우고 시작.
+                .build();
+        mRealm = Realm.getInstance(config);
     }
 }
 
