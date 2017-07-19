@@ -37,6 +37,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmAsyncTask;
+import io.realm.RealmConfiguration;
 
 public class AddFinance extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     private Realm mRealm;
@@ -62,7 +63,13 @@ public class AddFinance extends AppCompatActivity implements AdapterView.OnItemS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_finance);
         ButterKnife.bind(this);
-        mRealm = Realm.getDefaultInstance();
+
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                //.schemaVersion(0)
+                //.migration(new Migration())
+                .deleteRealmIfMigrationNeeded() //개발중 일때 Realm 객체를 전부 지우고 시작.
+                .build();
+        mRealm = Realm.getInstance(config);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Payment");
@@ -215,7 +222,8 @@ public class AddFinance extends AppCompatActivity implements AdapterView.OnItemS
 
     private ArrayList<Person> addPersonData() {
         ArrayList<Person> peopleInfo = new ArrayList<Person>();
-        Travel realmResult = mRealm.where(Travel.class).equalTo("title", "gdfj").findFirst();
+        String title = intent.getStringExtra("title");
+        Travel realmResult = mRealm.where(Travel.class).equalTo("title", title).findFirst();
 
         for (int i = 0; i < realmResult.getPeople().size(); i++) {
             peopleInfo.add(realmResult.getPeople().get(i));
