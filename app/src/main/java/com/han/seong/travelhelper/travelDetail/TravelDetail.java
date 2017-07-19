@@ -57,6 +57,7 @@ public class TravelDetail extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_travel_detail);
         ButterKnife.bind(this);
+
         RealmConfiguration config = new RealmConfiguration.Builder()
                 //.schemaVersion(0)
                 //.migration(new Migration())
@@ -86,13 +87,12 @@ public class TravelDetail extends AppCompatActivity{
         walletFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("title", title);
-                startActivity(new Intent(getApplicationContext(), AddFinance.class));
+                Intent intent1 = new Intent(getApplicationContext(), AddFinance.class);
+                intent1.putExtra("title", title);
+                startActivity(intent1);
             }
         });
     }
-
-
 
     //set up tab title
     public void setUpTabContent(){
