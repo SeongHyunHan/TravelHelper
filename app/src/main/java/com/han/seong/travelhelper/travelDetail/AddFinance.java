@@ -27,6 +27,7 @@ import com.han.seong.travelhelper.vo.PaymentInfo;
 import com.han.seong.travelhelper.vo.Person;
 import com.han.seong.travelhelper.vo.Travel;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ public class AddFinance extends AppCompatActivity implements AdapterView.OnItemS
     @BindView(R.id.af_edtPaymentTitle) EditText paymentTitle;
     @BindView(R.id.af_edtDate) EditText paymentDate;
     @BindView(R.id.af_edtPrice) EditText totalPrice;
+    @BindView(R.id.af_edtDescription) EditText paymentDescription;
 
     @BindView(R.id.af_person_recyclerView) RecyclerView recyclerView;
 
@@ -56,7 +58,11 @@ public class AddFinance extends AppCompatActivity implements AdapterView.OnItemS
     private static ArrayList<Person> data;
 
     private Intent intent;
+    private String title;
+
     private int categories[] = {R.drawable.ic_hotel, R.drawable.ic_transit, R.drawable.ic_parking, R.drawable.ic_food, R.drawable.ic_drink, R.drawable.ic_etc };
+    private String categoriesName[] = {"Hotel", "Transit", "Parking", "Food", "Drink", "Etc"};
+    private String categorySelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,19 +93,18 @@ public class AddFinance extends AppCompatActivity implements AdapterView.OnItemS
     protected void onResume() {
         super.onResume();
         intent = getIntent();
+        title = intent.getStringExtra("title");
         settingCardView();
     }
 
     // Spinner Click Listener
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+        categorySelected = categoriesName[position];
     }
-
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+    public void onNothingSelected(AdapterView<?> parent) {}
 
-    }
 
     // Setting Option Menu
     @Override
@@ -133,7 +138,7 @@ public class AddFinance extends AppCompatActivity implements AdapterView.OnItemS
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, month);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabel(paymentDate, myCalendar, 0);
+                updateLabel(paymentDate, myCalendar);
             }
         };
 
@@ -146,7 +151,7 @@ public class AddFinance extends AppCompatActivity implements AdapterView.OnItemS
         });
     }
 
-    private void updateLabel(EditText editText, Calendar myCalendar, int i) {
+    private void updateLabel(EditText editText, Calendar myCalendar) {
 
         String myFormat = "MM/dd/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
@@ -155,16 +160,26 @@ public class AddFinance extends AppCompatActivity implements AdapterView.OnItemS
     }
 
     private void saveToDatabase() {
+        final Travel realmResult = mRealm.where(Travel.class).equalTo("title", title).findFirst();
+
         RealmAsyncTask realmAsyncTask = mRealm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                Finance finance = new Finance();
-                finance.setPaymentTitle(paymentTitle.getText().toString());
-                finance.setPrice(0.00);
-                finance.setDate(new Date());
+                try {
+                    Finance finance = new Finance();
+                    finance.setPaymentTitle(paymentTitle.getText().toString());
+                    finance.setCategory(categorySelected);
+                    finance.setPrice(Double.parseDouble(totalPrice.getText().toString()));
+                    String myFormat = "MM/dd/yy";
+                    SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+                    Date date = sdf.parse(paymentDate.getText().toString());
+                    finance.setDate(date);
+                    finance.setDescription(paymentDescription.getText().toString());
+                    realmResult.getFinances().add(finance);
 
-                Travel realmResult = mRealm.where(Travel.class).equalTo("title", intent.getStringExtra("title")).findFirst();
-                realmResult.getFinances().add(finance);
+                }catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
                    /*
                     try {
@@ -222,13 +237,12 @@ public class AddFinance extends AppCompatActivity implements AdapterView.OnItemS
 
     private ArrayList<Person> addPersonData() {
         ArrayList<Person> peopleInfo = new ArrayList<Person>();
-        String title = intent.getStringExtra("title");
+
         Travel realmResult = mRealm.where(Travel.class).equalTo("title", title).findFirst();
 
         for (int i = 0; i < realmResult.getPeople().size(); i++) {
             peopleInfo.add(realmResult.getPeople().get(i));
         }
         return peopleInfo;
-
     }
 }

@@ -51,6 +51,7 @@ public class TravelDetail extends AppCompatActivity{
     private Realm mRealm;
     private Intent intent;
     private String title;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,10 +77,11 @@ public class TravelDetail extends AppCompatActivity{
     protected void onResume() {
         super.onResume();
         intent = getIntent();
-        getSupportActionBar().setTitle(intent.getStringExtra("Title"));
-        getSupportActionBar().setSubtitle(intent.getStringExtra("Subtitle"));
+        bundle = intent.getExtras();
+        getSupportActionBar().setTitle(bundle.getString("Title"));
+        getSupportActionBar().setSubtitle(bundle.getString("Subtitle"));
 
-        title = intent.getStringExtra("realmSearch");
+        title = bundle.getString("realmSearch");
 
         getFinanceData();
         getPersonData();
