@@ -121,12 +121,7 @@ public class AddTravel extends AppCompatActivity implements AdapterView.OnItemSe
         });
 
         totalBudget = 0.0;
-        RealmConfiguration config = new RealmConfiguration.Builder()
-                //.schemaVersion(0)
-                //.migration(new Migration())
-                .deleteRealmIfMigrationNeeded() //개발중 일때 Realm 객체를 전부 지우고 시작.
-                .build();
-        realm = Realm.getInstance(config);
+        realm = Realm.getDefaultInstance();
 
     }
 

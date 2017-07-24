@@ -32,7 +32,7 @@ public class DT_Person_RecyclerAdapter extends RecyclerView.Adapter<DT_Person_Re
 
             Person item = peopleList.get(position);
             holder.name.setText(item.getFirstName() + " " + item.getLastName());
-            holder.budget.setText(String.valueOf(item.getOwnBudget()));
+            holder.budget.setText(String.valueOf(item.getBalance()) + " (" + String.valueOf(item.getOwnBudget()) + ")");
         }
 
         @Override

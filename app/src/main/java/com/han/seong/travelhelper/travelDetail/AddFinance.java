@@ -52,13 +52,13 @@ public class AddFinance extends AppCompatActivity implements AdapterView.OnItemS
 
     @BindView(R.id.af_toolBar) Toolbar toolbar;
 
-
     private static RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private static ArrayList<Person> data;
+    private Travel realmResult;
 
     private Intent intent;
-    private String title;
+    private int travelNo;
 
     private int categories[] = {R.drawable.ic_hotel, R.drawable.ic_transit, R.drawable.ic_parking, R.drawable.ic_food, R.drawable.ic_drink, R.drawable.ic_etc };
     private String categoriesName[] = {"Hotel", "Transit", "Parking", "Food", "Drink", "Etc"};
@@ -69,13 +69,7 @@ public class AddFinance extends AppCompatActivity implements AdapterView.OnItemS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_finance);
         ButterKnife.bind(this);
-
-        RealmConfiguration config = new RealmConfiguration.Builder()
-                //.schemaVersion(0)
-                //.migration(new Migration())
-                .deleteRealmIfMigrationNeeded() //개발중 일때 Realm 객체를 전부 지우고 시작.
-                .build();
-        mRealm = Realm.getInstance(config);
+        mRealm = Realm.getDefaultInstance();
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Payment");
@@ -93,8 +87,9 @@ public class AddFinance extends AppCompatActivity implements AdapterView.OnItemS
     protected void onResume() {
         super.onResume();
         intent = getIntent();
-        title = intent.getStringExtra("title");
-        settingCardView();
+        travelNo = Integer.parseInt(intent.getStringExtra("travelNo"));
+        realmResult = mRealm.where(Travel.class).equalTo("travelNo", travelNo).findFirst();
+       settingCardView();
     }
 
     // Spinner Click Listener
@@ -160,8 +155,6 @@ public class AddFinance extends AppCompatActivity implements AdapterView.OnItemS
     }
 
     private void saveToDatabase() {
-        final Travel realmResult = mRealm.where(Travel.class).equalTo("title", title).findFirst();
-
         RealmAsyncTask realmAsyncTask = mRealm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
@@ -222,6 +215,7 @@ public class AddFinance extends AppCompatActivity implements AdapterView.OnItemS
         });
     }
 
+
     private void settingCardView() {
             recyclerView.setHasFixedSize(true);
 
@@ -238,11 +232,10 @@ public class AddFinance extends AppCompatActivity implements AdapterView.OnItemS
     private ArrayList<Person> addPersonData() {
         ArrayList<Person> peopleInfo = new ArrayList<Person>();
 
-        Travel realmResult = mRealm.where(Travel.class).equalTo("title", title).findFirst();
-
         for (int i = 0; i < realmResult.getPeople().size(); i++) {
             peopleInfo.add(realmResult.getPeople().get(i));
         }
         return peopleInfo;
     }
+
 }

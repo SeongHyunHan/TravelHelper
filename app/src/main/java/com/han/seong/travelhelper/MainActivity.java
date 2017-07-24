@@ -204,12 +204,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initRealm(){
         Realm.init(this);
-        RealmConfiguration config = new RealmConfiguration.Builder()
-                //.schemaVersion(0)
-                //.migration(new Migration())
-                .deleteRealmIfMigrationNeeded() //개발중 일때 Realm 객체를 전부 지우고 시작.
-                .build();
-        mRealm = Realm.getInstance(config);
+        mRealm = Realm.getDefaultInstance();
     }
 }
 

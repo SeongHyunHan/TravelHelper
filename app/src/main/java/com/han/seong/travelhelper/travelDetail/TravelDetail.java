@@ -50,8 +50,9 @@ public class TravelDetail extends AppCompatActivity{
 
     private Realm mRealm;
     private Intent intent;
-    private String title;
+    private int travelNo;
     private Bundle bundle;
+    private Travel realmResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +60,7 @@ public class TravelDetail extends AppCompatActivity{
         setContentView(R.layout.activity_travel_detail);
         ButterKnife.bind(this);
 
-        RealmConfiguration config = new RealmConfiguration.Builder()
-                //.schemaVersion(0)
-                //.migration(new Migration())
-                .deleteRealmIfMigrationNeeded() //개발중 일때 Realm 객체를 전부 지우고 시작.
-                .build();
-        mRealm = Realm.getInstance(config);
+        mRealm = Realm.getDefaultInstance();
 
         settingNavigationDrawer();
         setUpTabContent();
@@ -81,8 +77,9 @@ public class TravelDetail extends AppCompatActivity{
         getSupportActionBar().setTitle(bundle.getString("Title"));
         getSupportActionBar().setSubtitle(bundle.getString("Subtitle"));
 
-        title = bundle.getString("realmSearch");
+        travelNo = Integer.parseInt(bundle.getString("realmSearch"));
 
+        realmResult = mRealm.where(Travel.class).equalTo("travelNo", travelNo).findFirst();
         getFinanceData();
         getPersonData();
 
@@ -90,7 +87,7 @@ public class TravelDetail extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Intent intent1 = new Intent(getApplicationContext(), AddFinance.class);
-                intent1.putExtra("title", title);
+                intent1.putExtra("travelNo", String.valueOf(travelNo));
                 startActivity(intent1);
             }
         });
@@ -155,7 +152,6 @@ public class TravelDetail extends AppCompatActivity{
     // -------End Navigation Drawer
 
     private void getFinanceData(){
-        Travel realmResult = mRealm.where(Travel.class).equalTo("title", title).findFirst();
         List<Finance> finances = realmResult.getFinances();
         List<Finance> financeList = new ArrayList<Finance>();
         Boolean exist = false;
@@ -173,7 +169,6 @@ public class TravelDetail extends AppCompatActivity{
     }
 
     private void getPersonData(){
-        Travel realmResult = mRealm.where(Travel.class).equalTo("title", title).findFirst();
         List<Person> personList = realmResult.getPeople();
         if(personList.size() != 0) {
             personRecyclerView.setAdapter(new DT_Person_RecyclerAdapter(personList, R.layout.dt_person_row));

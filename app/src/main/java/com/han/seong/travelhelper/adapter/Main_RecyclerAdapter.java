@@ -28,6 +28,7 @@ public class Main_RecyclerAdapter extends RecyclerView.Adapter<Main_RecyclerAdap
         TextView tv_content;
         TextView tv_startDate;
         TextView tv_endDate;
+        TextView tv_travelNo;
 
         public MyViewHolder(View itemView){
             super(itemView);
@@ -36,13 +37,14 @@ public class Main_RecyclerAdapter extends RecyclerView.Adapter<Main_RecyclerAdap
             this.tv_content = (TextView)itemView.findViewById(R.id.tv_CVCountry);
             this.tv_startDate = (TextView)itemView.findViewById(R.id.tv_CVStart);
             this.tv_endDate = (TextView)itemView.findViewById(R.id.tv_CVEnd);
+            this.tv_travelNo = (TextView)itemView.findViewById(R.id.tv_CVTravelNo);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(view.getContext(), TravelDetail.class);
                     Bundle bundle = new Bundle();
-                    bundle.putString("realmSearch", tv_title.getText().toString());
+                    bundle.putString("realmSearch", tv_travelNo.getText().toString());
                     bundle.putString("Title", tv_title.getText().toString() + " (" + tv_content.getText().toString() + ")");
                     bundle.putString("Subtitle", tv_startDate.getText().toString() + " ~ " + tv_endDate.getText().toString());
                     intent.putExtras(bundle);
@@ -75,9 +77,11 @@ public class Main_RecyclerAdapter extends RecyclerView.Adapter<Main_RecyclerAdap
         TextView tv_content = holder.tv_content;
         TextView tv_startDate = holder.tv_startDate;
         TextView tv_endDate = holder.tv_endDate;
+        TextView tv_travelNo = holder.tv_travelNo;
 
         tv_title.setText(travelList.get(position).getTitle());
         tv_content.setText(travelList.get(position).getCountry());
+        tv_travelNo.setText(String.valueOf(travelList.get(position).getTravelNo()));
 
         String myFormat = "MM/dd/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
